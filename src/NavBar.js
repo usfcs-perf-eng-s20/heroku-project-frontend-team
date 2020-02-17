@@ -10,7 +10,7 @@ function NavBar(){
                 DVD Hub
             </h1>
             <div>
-                <NavLink to = "/" className = "nav-link">Home</NavLink>
+                <NavLink to = "/" className = "nav-link" exact>Home</NavLink>
                 <NavLink to = "/search" className = "nav-link">Search</NavLink>
                 <NavLink to="/top"className = "nav-link" >My top</NavLink>
                 <NavLink to="/me"className = "nav-link" >Profile</NavLink>
