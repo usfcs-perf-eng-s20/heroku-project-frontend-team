@@ -1,0 +1,13 @@
+.MyTop {
+  display: flex;
+  flex-wrap: no-wrap;
+}
+
+.MyTop > div {
+  margin: 10px;
+  min-width: 400px;
+}
+
+.MyTop > div > table {
+  width: 100%;
+}
