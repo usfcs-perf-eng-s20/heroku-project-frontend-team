@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Product from "./components/Product";
 import Profile from "./components/Profile";
 import Search from "./components/Search";
-import MyTop from "./components/MyTop";
+import MyTop from "./components/MyTop/MyTop";
 
 const Routes = () => {
     return(
