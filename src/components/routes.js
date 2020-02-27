@@ -6,6 +6,8 @@ import Product from "./Product";
 import Profile from "./Profile/";
 import Search from "./Search";
 import MyTop from "./MyTop";
+import TestMyTop from "./MyTop/MyTop";
+import Status from "./Status";
 
 const Routes = () => {
   return (
@@ -16,6 +18,8 @@ const Routes = () => {
       <Route path="/me" component={Profile} />
       <Route path="/search" component={Search} />
       <Route path="/top" component={MyTop} />
+      <Route path="/testTop" component={TestMyTop} />
+      <Route path="/status" component={Status} />
     </Switch>
   );
 };

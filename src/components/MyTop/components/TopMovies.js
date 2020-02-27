@@ -30,16 +30,18 @@ function TopMovies() {
       <button onClick={() => setView(1)}>Rating</button>
       <button onClick={() => setView(2)}>Checkouts</button>
       <table>
-        <tr>
-          <td>Movie</td>
-          <td>{view === 0 ? "Favs" : view === 1 ? "Rating" : "Checkouts"}</td>
-        </tr>
-        {data.body.map(({ title, favs, rating, checkouts }) => (
+        <tbody>
           <tr>
-            <td>{title}</td>
-            <td>{selectCorrectView(favs, rating, checkouts)}</td>
+            <td>Movie</td>
+            <td>{view === 0 ? "Favs" : view === 1 ? "Rating" : "Checkouts"}</td>
           </tr>
-        ))}
+          {data.body.map(({ title, favs, rating, checkouts }) => (
+            <tr key={title}>
+              <td>{title}</td>
+              <td>{selectCorrectView(favs, rating, checkouts)}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );

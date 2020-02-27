@@ -37,20 +37,24 @@ function TopUsers() {
     <div>
       <h1>Top Users</h1>
       <table>
-        <tr>
-          <td>User</td>
-          <td onClick={() => setFilter(0)}># COs</td>
-          <td onClick={() => setFilter(1)}># Favs</td>
-          <td onClick={() => setFilter(2)}># Ratings</td>
-        </tr>
-        {data.body.sort(sortBy()).map(({ user, checkouts, favs, ratings }) => (
+        <tbody>
           <tr>
-            <td>{user}</td>
-            <td>{checkouts}</td>
-            <td>{favs}</td>
-            <td>{ratings}</td>
+            <td>User</td>
+            <td onClick={() => setFilter(0)}># COs</td>
+            <td onClick={() => setFilter(1)}># Favs</td>
+            <td onClick={() => setFilter(2)}># Ratings</td>
           </tr>
-        ))}
+          {data.body
+            .sort(sortBy())
+            .map(({ user, checkouts, favs, ratings }) => (
+              <tr key={user}>
+                <td>{user}</td>
+                <td>{checkouts}</td>
+                <td>{favs}</td>
+                <td>{ratings}</td>
+              </tr>
+            ))}
+        </tbody>
       </table>
     </div>
   );
