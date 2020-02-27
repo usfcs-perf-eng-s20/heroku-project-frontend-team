@@ -10,7 +10,7 @@ class MyTop extends React.Component {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     try {
       setInterval(() => {
         MyTopApicalls.getMyTops().then(
