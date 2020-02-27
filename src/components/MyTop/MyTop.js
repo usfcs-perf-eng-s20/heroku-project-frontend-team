@@ -8,9 +8,6 @@ class MyTop extends React.Component {
     this.state = {
       "tops": []
     }
-  }
-
-  componentDidMount() {
     try {
       setInterval(() => {
         MyTopApicalls.getMyTops().then(
@@ -28,6 +25,7 @@ class MyTop extends React.Component {
       console.log(e);
     }
   }
+
 
   render(){
     return (
