@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URLS } from "../../constants";
 
-import "./Status.css";
+import "./Status.scss";
 
 function Status() {
   const [searchResult, setSearchResult] = useState({ status: 0 });
