@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./MyTop.css";
+import "./MyTop.scss";
 
 import TopMovies from "./components/TopMovies";
 import TopUsers from "./components/TopUsers";

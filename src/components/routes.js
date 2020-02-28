@@ -1,19 +1,18 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import HelloWorld from "./HelloWorld";
-import Home from "./Home";
-import Product from "./Product";
+
+import Home from "./Home/";
+import Product from "./Product/";
 import Profile from "./Profile/";
-import Search from "./Search";
+import Search from "./Search/";
 import MyTop from "./MyTop";
 import TestMyTop from "./MyTop/MyTop";
-import Status from "./Status";
+import Status from "./Status/";
 
 const Routes = () => {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/helloworld" component={HelloWorld} />
       <Route path="/product/:id" component={Product} />
       <Route path="/me" component={Profile} />
       <Route path="/search" component={Search} />
