@@ -18,10 +18,10 @@ function Home() {
         }
       }}
       >
-      <img src='https://www.joblo.com/assets/images/joblo/posters/2019/01/IO-poster-1.jpg'/>
-      <img src='https://www.mauvais-genres.com/26247/avengers-endgame-original-movie-poster-15x21-in-2019-anthony-russo-robert-downey-jr.jpg'/>
-      <img src='https://images.moviepostershop.com/replicas-movie-poster-1000778791.jpg'/>
-      <img src='https://www.arthipo.com/image/cache/catalog/genel-tasarim/all-posters/sinema-cinema-film-postersleri/yabanci-filmler/1/pfilm1505-avatar-2_c02bbf7f-poster-movie-film-1000x1000.jpg'/>
+      <img src='https://i.etsystatic.com/19446373/r/il/5789bb/1828896207/il_570xN.1828896207_j681.jpg'/>
+      <img src='https://images-na.ssl-images-amazon.com/images/I/51k1da28EmL._AC_.jpg'/>
+      <img src='https://pisces.bbystatic.com/image2/BestBuy_US/images/products/3453/34532974_so.jpg'/>
+      <img src='https://cdn.europosters.eu/image/750/posters/avatar-limited-ed-one-sheet-sun-i7182.jpg'/>
       </Coverflow>
     </div>
   );
