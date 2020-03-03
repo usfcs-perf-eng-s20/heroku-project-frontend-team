@@ -9,6 +9,7 @@ function Home() {
       navigation
       infiniteScroll
       enableHeading
+      active={1}
       media={{
         '@media (max-width: 600px)': {
           height: '600px'
