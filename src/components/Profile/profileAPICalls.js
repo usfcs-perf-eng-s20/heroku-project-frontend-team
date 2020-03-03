@@ -22,27 +22,5 @@ export default class ProfileAPICalls extends React.Component {
         return responseValue;
     } 
 
-    static postMyProfile = async (profileName, age, email, city) =>{
-        const headers = {};
-
-        let responseValue = [];
-        await axios.post(
-            'https://gentle-spire-73113.herokuapp.com​/getUserInfo',
-            {headers},
-            {
-                "profileName":profileName,
-                "age":age,
-                "email":email,
-                "city":city
-            }
-            ).then(response => {
-                responseValue = response.data;
-            })
-            .catch(error => {
-                console.log(error);
-            }
-        )
-
-        return responseValue;
-    }
+    
 }
