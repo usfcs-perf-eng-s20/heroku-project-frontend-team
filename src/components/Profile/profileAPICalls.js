@@ -22,7 +22,7 @@ export default class ProfileAPICalls extends React.Component {
         return responseValue;
     } 
 
-    static posttMyProfile = async (profileName, age, email, city) =>{
+    static postMyProfile = async (profileName, age, email, city) =>{
         const headers = {};
 
         let responseValue = [];
