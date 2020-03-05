@@ -1,25 +1,40 @@
 import React, { useState, useEffect } from "react";
+import Button from '@material-ui/core/Button';
+import ProfileAPICalls from './profileAPICalls';
 
 function Profile(props) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [profileName, setProfileName] = useState("Samuel");
+  try {
+    setInterval(() => {
+      ProfileAPICalls.getMyProfile(0).then(
+          (v) => {
+            console.log( v );
+          },
+          (error) => {
+            console.log( error );
+          }
+      );
+    }, 3000);
+  } catch(e) {
+    console.log(e);
+  }
+  const [profileName, setProfileName] = useState("Perf Eng");
+  const [age, setAge] = useState(50);
+  const [email, setEmail] = useState("perfeng.loginteam@gmail.com");
+  const [city, setCity] = useState("San Francisco");
 
-  useEffect(() => {
-    console.log(profileName);
-  }, [profileName]);
+  
+  
 
   return (
     <div>
-      Profile
+      Hello, {profileName}
       <br />
-      {searchQuery}
+      Age: {age} 
       <br />
-      {profileName}
+      Email: {email} 
       <br />
-      <input onChange={e => setSearchQuery(e.target.value)}></input>
-      <br />
-      <input onChange={e => setProfileName(e.target.value)}></input>
-    </div>
+      City: {city} 
+      </div>
   );
 }
 
