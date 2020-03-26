@@ -4,28 +4,42 @@ import "./Login.scss";
 
 import useLocalStorage from "../../provider/useLocalStorage";
 
-function Login({ setBypass }) {
-  const [username, setUsername] = useLocalStorage("username");
-  const [password, setPassword] = useLocalStorage("password");
-
+function Login({
+  setBypass,
+  email,
+  setEmail,
+  password,
+  setPassword,
+  fetch,
+  loginError
+}) {
   return (
     <div className="login_main">
       <div className="login_container">
-        <div>
-          <label>Username:</label>{" "}
+        <div className="title">Welcome to DVD Rentalz</div>
+        <div className="row">
+          <label>Email:</label>
           <input
-            value={username}
-            onChange={event => setUsername(event.target.value)}
+            value={email}
+            onChange={event => setEmail(event.target.value)}
           />
         </div>
-        <div>
-          <label>Password:</label>{" "}
+        <div className="row">
+          <label>Password:</label>
           <input
             value={password}
             onChange={event => setPassword(event.target.value)}
           />
         </div>
-        <div onClick={() => setBypass(true)}>Login</div>
+        <div className="buttons">
+          <div className="login_button" onClick={() => fetch()}>
+            Login
+          </div>
+          <div className="login_bypass" onClick={() => setBypass(true)}>
+            Login Bypass
+          </div>
+        </div>
+        <div className="login_error">{loginError?.message}</div>
       </div>
     </div>
   );

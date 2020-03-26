@@ -1,0 +1,38 @@
+.login_main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_container {
+  padding: 10px;
+  border: 1px solid black;
+  .title {
+    font-size: 1.5em;
+    padding: 10px 0 15px;
+  }
+  & > .row {
+    display: table;
+    label {
+      display: table-cell;
+      width: 120px;
+    }
+  }
+  .buttons {
+    display: block;
+    text-align: center;
+    margin: 5px;
+    .login_button {
+      padding: 5px;
+    }
+    .login_bypass {
+      font-size: 0.8em;
+      color: grey;
+    }
+  }
+  .login_error {
+    color: red;
+  }
+}

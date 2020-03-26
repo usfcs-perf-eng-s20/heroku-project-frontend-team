@@ -1,42 +1,32 @@
 import React, { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
+import axios from "axios";
 
 import { LOGIN_API } from "../provider/routes_constants";
 import useLocalStorage from "../provider/useLocalStorage";
 
 const initState = [null, false, null];
 
-function useLoginStatus({ bypass }) {
+function useLoginStatus(args = {}) {
+  const { bypass = false, refetch, email = "", password = "" } = args;
   const [loginState, setLoginState] = useState(initState);
-
-  const [username, setUsername] = useLocalStorage("username", "");
-  const [password, setPassword] = useLocalStorage("password", "");
-
-  const [{ data, loading, error }] = useAxios({
-    url: `${LOGIN_API.login}`,
-    method: "POST",
-    params: {
-      userName: username,
-      password
-    }
-  });
 
   useEffect(() => {
     if (bypass) return setLoginState(["1", false, false]);
 
-    if (!username || !password) setLoginState([null, false, true]);
+    if (!email || !password) return setLoginState([null, false, true]);
 
-    if (loading) {
-      setLoginState([null, true, null]);
-    }
+    setLoginState([null, true, null]); // Loading
 
-    if (!error && data) {
-      setLoginState([data, false, null]);
-    } else {
-      setLoginState([null, false, error]);
-    }
-  }, [username, password, data, loading, error, bypass]);
-
+    axios
+      .post(`${LOGIN_API.login}`, { email, password })
+      .then(res => {
+        setLoginState([res, false, null]);
+      })
+      .catch(err => {
+        setLoginState([null, false, err]);
+      });
+  }, [bypass, refetch]);
   return loginState;
 }
 

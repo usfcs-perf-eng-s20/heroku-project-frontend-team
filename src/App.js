@@ -10,29 +10,44 @@ import NavBar from "./components/NavBar/NavBar";
 import Login from "./components/Login/";
 
 function App() {
-  const [username, setUsername] = useLocalStorage("username");
-  const [password, setPassword] = useLocalStorage("password");
+  const [email, setEmail] = useLocalStorage("email", "");
+  const [password, setPassword] = useLocalStorage("password", "");
   const [bypass, setBypass] = useLocalStorage("bypass", false);
+  const [refetch, setRefetch] = useState(false);
+
+  const relogin = () => setRefetch(!refetch);
 
   const [isLoggedIn, loginLoading, loginError] = useLoginStatus({
-    bypass
+    email,
+    password,
+    bypass,
+    refetch
   });
-
-  console.log(isLoggedIn, loginLoading, loginError);
 
   const showLoginPage =
-    (!bypass && !(username || password)) || !isLoggedIn || loginError;
+    !bypass && (!(email || password) || !isLoggedIn || loginError);
 
   const logoutCallback = useCallback(() => {
-    setUsername("");
+    setEmail("");
     setPassword("");
     setBypass(false);
+    relogin();
   });
+
+  const loginProps = {
+    setBypass,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    fetch: relogin,
+    loginError
+  };
 
   return (
     <Router>
       {showLoginPage ? (
-        <Login setBypass={setBypass} />
+        <Login {...loginProps} />
       ) : (
         <div>
           <NavBar logoutCallback={logoutCallback} />

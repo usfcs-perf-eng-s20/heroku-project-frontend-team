@@ -1,7 +1,7 @@
 const search_url = "https://perfeng-go-search.herokuapp.com";
-const analytics_url = "https://prod-analytics-boot.herokuapp.com";
+const analytics_url = "https://qa-analytics-boot.herokuapp.com";
 const faves_url = "https://hist-fav-checkout.herokuapp.com";
-const login_url = "https://gentle-spire-73113.herokuapp.com";
+const login_url = "https://perfeng-login-user.herokuapp.com";
 
 export const SEARCH_API = {
   ping: `${search_url}/`
@@ -17,5 +17,6 @@ export const FAVES_API = {
 
 export const LOGIN_API = {
   ping: `${login_url}/`,
+  getUserInfo: `${login_url}/getUserInfo`,
   login: `${login_url}/login`
 };
