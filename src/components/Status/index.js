@@ -1,83 +1,82 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { API_URLS } from "../../constants";
+import React, { useState, useEffect, useCallback } from "react";
+import useAxios from "axios-hooks";
+import {
+  SEARCH_API,
+  ANALYTICS_API,
+  FAVES_API,
+  LOGIN_API
+} from "../../provider/routes_constants";
 
 import "./Status.scss";
 
 function Status() {
-  const [searchResult, setSearchResult] = useState({ status: 0 });
-  const [analyticsResult, setAnalyticsResult] = useState({ status: 0 });
-  const [favesResult, setFavesResult] = useState({ status: 0 });
-  const [loginResult, setLoginResult] = useState({ status: 0 });
+  const [
+    {
+      data: searchData,
+      loading: searchLoading,
+      error: searchError,
+      response: searchResponse
+    },
+    searchRefetch
+  ] = useAxios(`${SEARCH_API.ping}`);
 
-  const [searchToggle, setSearchToggle] = useState(false);
-  const [interval, setIntervalVariable] = useState(null);
+  const [
+    {
+      data: analyticsData,
+      loading: analyticsLoading,
+      error: analyticsError,
+      response: analyticsResponse
+    },
+    analyticsRefetch
+  ] = useAxios(`${ANALYTICS_API.ping}`);
 
-  useEffect(() => {
-    const fetchSearchData = async () => {
-      try {
-        const result = await axios(API_URLS.search);
-        setSearchResult({ status: result.status });
-      } catch (error) {
-        setSearchResult({ status: 404, error });
-      }
-    };
-    const fetchAnalyticsData = async () => {
-      try {
-        const result = await axios(API_URLS.analytics);
-        setAnalyticsResult({ status: result.status });
-      } catch (error) {
-        console.log(error);
-        setAnalyticsResult({ status: 404, error });
-      }
-    };
-    const fetchFavesData = async () => {
-      try {
-        const result = await axios(API_URLS.faves);
-        setFavesResult({ status: result.status });
-      } catch (error) {
-        setFavesResult({ status: 404, error });
-      }
-    };
-    const fetchLoginData = async () => {
-      try {
-        const result = await axios(API_URLS.login);
-        setLoginResult({ status: result.status });
-      } catch (error) {
-        setLoginResult({ status: 404, error });
-      }
-    };
+  const [
+    {
+      data: favesData,
+      loading: favesLoading,
+      error: favesError,
+      response: favesResponse
+    },
+    favesRefetch
+  ] = useAxios(`${FAVES_API.ping}`);
 
-    fetchSearchData();
-    fetchAnalyticsData();
-    fetchFavesData();
-    fetchLoginData();
-  }, [searchToggle]);
+  const [
+    {
+      data: loginData,
+      loading: loginLoading,
+      error: loginError,
+      response: loginResponse
+    },
+    loginRefetch
+  ] = useAxios(`${LOGIN_API.ping}`);
+
+  const refetch = useCallback(() => {
+    searchRefetch();
+    analyticsRefetch();
+    favesRefetch();
+    loginRefetch();
+  });
 
   return (
     <div className="Status">
       <h1>Status</h1>
       <h2>Result</h2>
-      <button onClick={() => setSearchToggle(!searchToggle)}>Search</button>
+      <button onClick={refetch}>Ping</button>
       <div>
-        {`Search API : ${searchResult.status} ${
-          searchResult.error ? searchResult.error : "No Error"
-        }`}
+        Search API {searchError ? "ERROR" : "SUCCESS"}. Status:
+        {searchError?.toString() || searchResponse?.status}
       </div>
       <div>
-        {`Analytics API : ${analyticsResult.status} ${
-          analyticsResult.error ? analyticsResult.error : "No Error"
-        }`}
+        Analytics API {analyticsError ? "ERROR" : "SUCCESS"}. Status:
+        {analyticsError?.toString() || analyticsResponse?.status}
       </div>
       <div>
-        {`Faves API : ${favesResult.status} ${
-          favesResult.error ? favesResult.error : "No Error"
-        }`}
+        Faves API {favesError ? "ERROR" : "SUCCESS"}. Status:
+        {favesError?.toString() || favesResponse?.status}
       </div>
       <div>
-        {`Login API : ${loginResult.status} ${
-          loginResult.error ? loginResult.error : "No Error"
-        }`}
+        Login API {loginError ? "ERROR" : "SUCCESS"}. Status:
+        {loginError?.toString() || loginResponse?.status}
       </div>
     </div>
   );

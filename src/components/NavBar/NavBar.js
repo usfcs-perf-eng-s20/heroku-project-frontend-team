@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import "./NavBar.scss";
 
-function NavBar() {
+function NavBar({ logoutCallback }) {
   return (
     <div>
       <h1>DVD Hub</h1>
@@ -23,6 +23,9 @@ function NavBar() {
         <NavLink to="/status" className="nav-link">
           Status
         </NavLink>
+        <div className="nav-link" onClick={logoutCallback}>
+          Logout
+        </div>
       </div>
     </div>
   );
