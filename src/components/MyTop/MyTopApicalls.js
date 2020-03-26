@@ -21,4 +21,22 @@ export default class MyTopApicalls extends React.Component {
 
         return responseValue;
     } 
+
+    static getTopUsers = async (category) =>{
+        const headers = {};
+
+        let responseValue = [];
+        await axios.get(
+            `https://hist-fav-checkout.herokuapp.com/getTopUsers?selected=${category}&page=1&nums=10`,
+            {headers}
+            ).then(response => {
+                responseValue = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            }
+        )
+
+        return responseValue;
+    } 
 }

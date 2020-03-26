@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import MyTopApicalls from "../MyTopApicalls";
 // import "./TopUsers.css";
 
 const data = {
@@ -40,9 +40,9 @@ function TopUsers() {
         <tbody>
           <tr>
             <td>User</td>
-            <td onClick={() => setFilter(0)}># COs</td>
-            <td onClick={() => setFilter(1)}># Favs</td>
-            <td onClick={() => setFilter(2)}># Ratings</td>
+            <td onClick={() => {setFilter(0); data = MyTopApicalls.getMyTops('Checkouts');}}># COs</td>
+            <td onClick={() => {setFilter(1); data = MyTopApicalls.getMyTops('Faves');}}># Favs</td>
+            <td onClick={() => {setFilter(2); data = MyTopApicalls.getMyTops('Ratings');}}># Ratings</td>
           </tr>
           {data.body
             .sort(sortBy())
