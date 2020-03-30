@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MyTopApicalls from "../MyTopApicalls";
 import "./TopMovies.css";
 
@@ -21,7 +21,6 @@ function TopMovies() {
       (v) => {
           console.log( "@getMyTops Succeeded@", v );
           setData(v);
-          console.log( "@data@", data);
       },
       (error) => {
           console.log( error );
@@ -29,9 +28,13 @@ function TopMovies() {
     );
   }
 
+  useEffect(() => {
+    refreshHandler();
+  },[]);
+
+  
   return (
     <div>
-      {/* {refreshHandler()} */}
       <h1>Top Movies</h1>
       <button onClick={refreshHandler}>Refresh</button>
       <button onClick={() => setView(0)}>sumOfRatings</button>

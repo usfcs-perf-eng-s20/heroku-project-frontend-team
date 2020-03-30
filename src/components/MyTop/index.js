@@ -9,6 +9,7 @@ function MyTop() {
   return (
     <div className="MyTop">
       <TopMovies />
+      <br/>
       <TopUsers />
     </div>
   );

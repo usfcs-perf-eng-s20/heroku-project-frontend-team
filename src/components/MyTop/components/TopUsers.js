@@ -1,57 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MyTopApicalls from "../MyTopApicalls";
 // import "./TopUsers.css";
 
-const data = {
-  body: [
-    {
-      user: "Frank",
-      checkouts: 45,
-      favs: 15,
-      ratings: 110
-    },
-    {
-      user: "Zini",
-      checkouts: 10,
-      favs: 2,
-      ratings: 120
-    }
-  ]
-};
+
 
 function TopUsers() {
   const [filter, setFilter] = useState(0);
+  const [data, setData] = useState([]);
 
   const sortBy = () => {
     switch (filter) {
       case 0:
+        console.log("@filter0@", filter);
         return (a, b) => b.checkouts - a.checkouts;
       case 1:
+        console.log("@filter1@", filter);
         return (a, b) => b.favs - a.favs;
       case 2:
       default:
+        console.log("@filter2@", filter);
         return (a, b) => b.ratings - a.ratings;
     }
   };
+
+  const refreshHandler = () =>{
+    MyTopApicalls.getTopUsers('favs').then(
+      (v) => {
+          console.log( "@getTopUsers Succeeded@", v );
+          setData(v);
+      },
+      (error) => {
+          console.log( error );
+      }
+    );
+  }
+
+  useEffect(() => {
+    refreshHandler();
+  },[]);
+
   return (
     <div>
       <h1>Top Users</h1>
+      <button onClick={refreshHandler}>Refresh</button>
       <table>
         <tbody>
           <tr>
             <td>User</td>
-            <td onClick={() => {setFilter(0); data = MyTopApicalls.getMyTops('Checkouts');}}># COs</td>
-            <td onClick={() => {setFilter(1); data = MyTopApicalls.getMyTops('Faves');}}># Favs</td>
-            <td onClick={() => {setFilter(2); data = MyTopApicalls.getMyTops('Ratings');}}># Ratings</td>
+            <td onClick={() => {setFilter(0)}}>checkoutsCount</td>
+            <td onClick={() => {setFilter(1)}}>favsCount</td>
+            <td onClick={() => {setFilter(2)}}>ratingsCount</td>
           </tr>
-          {data.body
+          {data
             .sort(sortBy())
-            .map(({ user, checkouts, favs, ratings }) => (
-              <tr key={user}>
-                <td>{user}</td>
-                <td>{checkouts}</td>
-                <td>{favs}</td>
-                <td>{ratings}</td>
+            .map(({ userName, favsCount, checkoutsCount, ratingsCount }, index) => (
+              <tr key={index}>
+                <td>{userName}</td>
+                <td>{checkoutsCount}</td>
+                <td>{favsCount}</td>
+                <td>{ratingsCount}</td>
               </tr>
             ))}
         </tbody>
