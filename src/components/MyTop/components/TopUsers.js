@@ -11,22 +11,31 @@ function TopUsers() {
   const sortBy = () => {
     switch (filter) {
       case 0:
-        console.log("@filter0@", filter);
+      default:
         return (a, b) => b.checkoutsCount - a.checkoutsCount;
       case 1:
-        console.log("@filter1@", filter);
         return (a, b) => b.favsCount - a.favsCount;
       case 2:
-      default:
-        console.log("@filter2@", filter);
         return (a, b) => b.ratingsCount - a.ratingsCount;
     }
   };
 
   const refreshHandler = () =>{
-    MyTopApicalls.getTopUsers('favs').then(
+    let category = 'checkouts';
+    switch (filter) {
+      case 0:
+        category = 'checkouts';
+        break;
+      case 1:
+        category = 'favs';
+        break;
+      case 2:
+        category = 'ratings';
+        break;
+    }
+    MyTopApicalls.getTopUsers(category).then(
       (v) => {
-          console.log( "@getTopUsers Succeeded@", v );
+          console.log( "@getTopUsers Succeeded@", category, v );
           setData(v);
       },
       (error) => {
@@ -37,7 +46,7 @@ function TopUsers() {
 
   useEffect(() => {
     refreshHandler();
-  },[]);
+  },[filter]);
 
   return (
     <div>
