@@ -12,14 +12,14 @@ function TopUsers() {
     switch (filter) {
       case 0:
         console.log("@filter0@", filter);
-        return (a, b) => b.checkouts - a.checkouts;
+        return (a, b) => b.checkoutsCount - a.checkoutsCount;
       case 1:
         console.log("@filter1@", filter);
-        return (a, b) => b.favs - a.favs;
+        return (a, b) => b.favsCount - a.favsCount;
       case 2:
       default:
         console.log("@filter2@", filter);
-        return (a, b) => b.ratings - a.ratings;
+        return (a, b) => b.ratingsCount - a.ratingsCount;
     }
   };
 
@@ -68,3 +68,4 @@ function TopUsers() {
 }
 
 export default TopUsers;
+
