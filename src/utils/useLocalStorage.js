@@ -34,7 +34,17 @@ function useLocalStorage(key, initialValue) {
     }
   };
 
-  return [storedValue, setValue];
+  const removeValue = () => {
+    try {
+      setStoredValue(undefined);
+      window.localStorage.removeItem(key);
+    } catch (error) {
+      // A more advanced implementation would handle the error case
+      console.log(error);
+    }
+  };
+
+  return [storedValue, setValue, removeValue];
 }
 
 export default useLocalStorage;
