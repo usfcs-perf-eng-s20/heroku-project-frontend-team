@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Context } from "providers/Store.js";
@@ -9,11 +9,11 @@ function NavBar() {
   // Load Store
   const [{ isLoggedIn }, dispatch] = useContext(Context);
 
-  const logoutCallback = useCallback(() => {
+  const logoutCallback = () => {
     dispatch({
       type: "SET_LOGOUT"
     });
-  });
+  };
 
   return (
     <div>

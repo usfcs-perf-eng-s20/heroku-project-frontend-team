@@ -1,18 +1,17 @@
 import React, { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
 
 import { Context } from "providers/Store.js";
 
 import "./Debug.scss";
 
 function Debug() {
-  const [{ userId, bypass, isLoggedIn }, dispatch] = useContext(Context);
+  const [{ userId, bypass, isLoggedIn }] = useContext(Context);
 
-  const [shouldDisplayDebug, setShouldDisplayDebug] = useState(true);
+  const [shouldDisplayDebug] = useState(true);
 
   return (
     shouldDisplayDebug && (
-      <div>
+      <div className="debug">
         UserId {userId}
         <br />
         Is user logged in?: {isLoggedIn?.toString()}

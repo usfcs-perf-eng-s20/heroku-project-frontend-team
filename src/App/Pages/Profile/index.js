@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import useAxios from "axios-hooks";
-import useLoginStatus from "../../provider/useLoginStatus";
-import { LOGIN_API } from "../../provider/routes_constants";
 
-function Profile(props) {
-  const [userId, loginLoading, loginError] = useLoginStatus({
-    bypass: true
-  });
+import { LOGIN_API } from "constants/api_constants";
+import { Context } from "providers/Store.js";
 
-  const [
-    { data: userInfoData, loading: userInfoLoading, error: userInfoError }
-  ] = useAxios({
+function Profile() {
+  const [{ userId }] = useContext(Context);
+
+  const [{ data: userInfoData, loading: userInfoLoading }] = useAxios({
     url: `${LOGIN_API.getUserInfo}`,
     params: {
-      userId: 1
+      userId
     }
   });
 

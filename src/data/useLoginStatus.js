@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import useAxios from "axios-hooks";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 import { LOGIN_API } from "constants/api_constants";
@@ -7,12 +6,10 @@ import { Context } from "providers/Store.js";
 
 const initState = [undefined, false, null];
 
-let flag = false;
-
 function useLoginStatus() {
   const [loginState, setLoginState] = useState(initState);
 
-  const [{ userId, bypass }, dispatch] = useContext(Context);
+  const [{ userId, bypass }] = useContext(Context);
 
   useEffect(() => {
     console.log("Check Login Status", userId, bypass);

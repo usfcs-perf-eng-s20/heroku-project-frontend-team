@@ -1,8 +1,8 @@
-import React, { useContext, useState, useCallback, useEffect } from "react";
-
-import Store from "providers/Store.js";
+import React from "react";
 
 import Main from "./Main";
+
+import Store from "providers/Store.js";
 
 function App() {
   return (

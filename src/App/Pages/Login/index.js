@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from "react";
+import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 
 import { Context } from "providers/Store.js";
@@ -7,14 +7,14 @@ import postLoginUser from "data/postLoginUser";
 import "./Login.scss";
 
 function Login() {
-  const [{ userId, bypass, isLoggedIn }, dispatch] = useContext(Context);
+  const [{ isLoggedIn }, dispatch] = useContext(Context);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const loginUser = useCallback(() => {
+  const loginUser = () => {
     setLoading(true);
     postLoginUser({
       email,
@@ -32,7 +32,7 @@ function Login() {
         setError(result.error.response.data.error);
       }
     });
-  });
+  };
 
   if (isLoggedIn)
     return (

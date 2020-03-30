@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from "react";
-import useAxios from "axios-hooks";
 import axios from "axios";
 
 import { LOGIN_API } from "constants/api_constants";
-import useLocalStorage from "utils/useLocalStorage";
-
-const initState = [undefined, false, null];
 
 function postLoginUser({ email, password }) {
   return axios
