@@ -9,7 +9,7 @@ export default class MyTopApicalls extends React.Component {
 
         let responseValue = [];
         await axios.get(
-            'https://hist-fav-checkout.herokuapp.com/getTopFavs?page=1&nums=10',
+            'https://hist-favs-checkout.herokuapp.com/getTopFavs?page=1&nums=10',
             {headers}
             ).then(response => {
                 responseValue = response.data;
