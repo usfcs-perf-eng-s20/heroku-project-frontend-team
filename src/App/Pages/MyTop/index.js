@@ -1,9 +1,9 @@
 import React from "react";
 
-import "./MyTop.scss";
-
 import TopMovies from "./components/TopMovies";
 import TopUsers from "./components/TopUsers";
+
+import "./MyTop.scss";
 
 function MyTop() {
   return (
