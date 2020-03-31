@@ -4,7 +4,25 @@ import axios from 'axios';
 export default class MyTopApicalls extends React.Component {
     
 
-    static getMyTops = async () =>{
+    static getTopRated = async () =>{
+        const headers = {};
+
+        let responseValue = [];
+        await axios.get(
+            'https://hist-favs-checkout.herokuapp.com/getTopRated?page=0&nums=10',
+            {headers}
+            ).then(response => {
+                responseValue = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            }
+        )
+
+        return responseValue;
+    } 
+
+    static getTopFavs = async () =>{
         const headers = {};
 
         let responseValue = [];

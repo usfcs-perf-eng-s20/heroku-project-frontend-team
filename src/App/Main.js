@@ -72,8 +72,8 @@ function Main() {
       <Debug />
       <NavBar />
       <Switch>
-        {routes.map(route => {
-          return <Route {...route} />;
+        {routes.map((route, index) => {
+          return <Route key={index} {...route} />;
         })}
       </Switch>
     </Router>

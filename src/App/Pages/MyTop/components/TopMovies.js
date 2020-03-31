@@ -10,48 +10,75 @@ function TopMovies() {
   const [data, setData] = useState([]);
 
   
-  const selectCorrectView = (favs, rating, checkouts) => {
-    if (view === 0) return favs;
-    if (view === 1) return rating;
-    if (view === 2) return checkouts;
-  };
 
   const refreshHandler = () =>{
-    MyTopApicalls.getMyTops().then(
-      (v) => {
-          console.log( "@getMyTops Succeeded@", v );
-          setData(v);
-      },
-      (error) => {
-          console.log( error );
-      }
-    );
+    switch (view) {
+      case 0:
+        MyTopApicalls.getTopRated().then(
+          (v) => {
+              console.log( "@getTopRated Succeeded@", v );
+              setData(v);
+          },
+          (error) => {
+              console.log( error );
+          }
+        );
+        break;
+      case 1:
+        MyTopApicalls.getTopFavs().then(
+          (v) => {
+              console.log( "@getTopFavs Succeeded@", v );
+              setData(v);
+          },
+          (error) => {
+              console.log( error );
+          }
+        );
+        break;
+    }
   }
 
   useEffect(() => {
     refreshHandler();
-  },[]);
+  },[view]);
 
   
   return (
     <div>
       <h1>Top Movies</h1>
       <button onClick={refreshHandler}>Refresh</button>
-      <button onClick={() => setView(0)}>sumOfRatings</button>
-      <button onClick={() => setView(1)}>totalCountOfRatings</button>
-      <button onClick={() => setView(2)}>numberOfFavorites</button>
+      <button onClick={() => setView(0)}>getTopRated</button>
+      <button onClick={() => setView(1)}>getTopFavs</button>
       <table>
         <tbody>
           <tr>
             <td>Movie</td>
-            <td>{view === 0 ? "sumOfRatings" : view === 1 ? "totalCountOfRatings" : "numberOfFavorites"}</td>
+            {view === 0 ?
+              <>
+                <td>sumOfRatings</td>
+                <td>totalCountOfRatings</td>
+              </>
+              :
+              <td>numberOfFavorites</td>
+            }
           </tr>
-          {data.map(({ id, sumOfRatings, totalCountOfRatings, numberOfFavorites }) => (
-            <tr key={id}>
-              <td>{id}</td>
-              <td>{selectCorrectView(sumOfRatings, totalCountOfRatings, numberOfFavorites)}</td>
-            </tr>
-          ))}
+          {
+            view === 0 ? 
+              data.map(({ id, sumOfRatings, totalCountOfRatings}) => (
+                <tr key={id}>
+                  <td>{id}</td>
+                  <td>{sumOfRatings}</td>
+                  <td>{totalCountOfRatings}</td>
+                </tr>
+              ))
+            :
+              data.map(({ id, numberOfFavorites }) => (
+                <tr key={id}>
+                  <td>{id}</td>
+                  <td>{numberOfFavorites}</td>
+                </tr>
+              ))
+          }
         </tbody>
       </table>
     </div>
