@@ -53,29 +53,21 @@ function TopMovies() {
         <tbody>
           <tr>
             <td>Movie</td>
-            {view === 0 ?
-              <>
-                <td>sumOfRatings</td>
-                <td>totalCountOfRatings</td>
-              </>
-              :
-              <td>numberOfFavorites</td>
-            }
+            {view === 0 ? <td>averageRating</td>:<td>favourites</td>}
           </tr>
           {
             view === 0 ? 
-              data.map(({ id, sumOfRatings, totalCountOfRatings}) => (
-                <tr key={id}>
-                  <td>{id}</td>
-                  <td>{sumOfRatings}</td>
-                  <td>{totalCountOfRatings}</td>
+              data.map(({ movieId, movieName, averageRating}) => (
+                <tr key={movieId}>
+                  <td>{movieName}</td>
+                  <td>{averageRating}</td>
                 </tr>
               ))
             :
-              data.map(({ id, numberOfFavorites }) => (
-                <tr key={id}>
-                  <td>{id}</td>
-                  <td>{numberOfFavorites}</td>
+              data.map(({ movieId, movieName, favourites }) => (
+                <tr key={movieId}>
+                  <td>{movieName}</td>
+                  <td>{favourites}</td>
                 </tr>
               ))
           }
