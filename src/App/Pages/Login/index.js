@@ -9,8 +9,8 @@ import "./Login.scss";
 function Login() {
   const [{ isLoggedIn }, dispatch] = useContext(Context);
 
-  const [email, setEmail] = useState("testaccount@gmail.com");
-  const [password, setPassword] = useState("12345");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -18,18 +18,17 @@ function Login() {
     setLoading(true);
     postLoginUser({
       email,
-      password
-    }).then(result => {
+      password,
+    }).then((result) => {
       setLoading(false);
       if (result.success) {
         setError(null);
         dispatch({
           type: "SET_USERID",
-          payload: result.data.userId
+          payload: result.data.userId,
         });
       } else {
-        console.log(result.error.response.data.error);
-        setError(result.error.response.data.error);
+        setError("Error");
       }
     });
   };
@@ -38,7 +37,7 @@ function Login() {
     return (
       <Redirect
         to={{
-          pathname: "/"
+          pathname: "/",
         }}
       />
     );
@@ -50,19 +49,25 @@ function Login() {
         <div className="row">
           <label>Email:</label>
           <input
+            data-test-id="email"
             value={email}
-            onChange={event => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </div>
         <div className="row">
           <label>Password:</label>
           <input
+            data-test-id="password"
             value={password}
-            onChange={event => setPassword(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <div className="buttons">
-          <div className="login_button" onClick={loginUser}>
+          <div
+            data-test-id="login_button"
+            className="login_button"
+            onClick={loginUser}
+          >
             Login
           </div>
           <div
@@ -70,7 +75,7 @@ function Login() {
             onClick={() =>
               dispatch({
                 type: "SET_BYPASS",
-                payload: true
+                payload: true,
               })
             }
           >

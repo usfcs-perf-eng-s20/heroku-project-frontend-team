@@ -6,21 +6,21 @@ const faves_url = "https://hist-fav-checkout.herokuapp.com";
 const login_url = "http://perfeng-login-user.herokuapp.com";
 
 export const SEARCH_API = {
-  ping: `${cors_anywhere}/${search_url}/`
+  ping: `${search_url}/`,
 };
 
 export const ANALYTICS_API = {
-  ping: `${cors_anywhere}/${analytics_url}/`
+  ping: `${analytics_url}/`,
 };
 
 export const FAVES_API = {
-  ping: `${cors_anywhere}/${faves_url}/ping`
+  ping: `${faves_url}/ping`,
 };
 
 export const LOGIN_API = {
-  ping: `${cors_anywhere}/${login_url}/`,
+  ping: `${login_url}/`,
   getUserInfo: `${cors_anywhere}/${login_url}/getUserInfo`,
-  login: `${cors_anywhere}/${login_url}/login`,
+  login: `${login_url}/login`,
   logout: `${cors_anywhere}/${login_url}/logout`,
-  isLoggedIn: `${cors_anywhere}/${login_url}/isLoggedIn`
+  isLoggedIn: `${cors_anywhere}/${login_url}/isLoggedIn`,
 };
