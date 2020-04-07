@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useCallback } from "react";
 
 import { Context } from "providers/Store.js";
 
@@ -9,6 +9,12 @@ function Debug() {
 
   const [shouldDisplayDebug] = useState(true);
 
+  const forceLogout = useCallback(() => {
+    window.localStorage.removeItem("userId");
+    window.localStorage.removeItem("bypass");
+    window.location.reload();
+  });
+
   return (
     shouldDisplayDebug && (
       <div className="debug">
@@ -18,6 +24,7 @@ function Debug() {
         <br />
         Is bypass on?: {bypass?.toString()}
         <br />
+        <div onClick={forceLogout}>Force logout</div>
       </div>
     )
   );

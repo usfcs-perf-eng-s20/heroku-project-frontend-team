@@ -3,29 +3,29 @@ const Reducer = (state, action) => {
     case "SET_USERID":
       return {
         ...state,
-        userId: action.payload
+        userId: action.payload,
       };
     case "SET_BYPASS":
       return {
         ...state,
-        bypass: action.payload
+        bypass: action.payload,
       };
-    case "SET_ISLOGGEDIN":
+    case "LOGIN_USER":
       return {
         ...state,
-        isLoggedIn: action.payload
+        isLoggedIn: true,
       };
-    case "SET_LOGOUT":
+    case "LOGOUT_USER":
       return {
         ...state,
         isLoggedIn: false,
         userId: undefined,
-        bypass: false
+        bypass: undefined,
       };
     case "SET_ERROR":
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
     default:
       return state;

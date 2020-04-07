@@ -4,7 +4,7 @@ import axios from "axios";
 import { LOGIN_API } from "constants/api_constants";
 import { Context } from "providers/Store.js";
 
-const initState = [undefined, false, null];
+const initState = [undefined, undefined, null];
 
 function useLoginStatus() {
   const [loginState, setLoginState] = useState(initState);
@@ -15,19 +15,21 @@ function useLoginStatus() {
     console.log("Check Login Status", userId, bypass);
     if (bypass) return setLoginState([true, false, null]);
 
-    if (!userId) return setLoginState([false, false, null]);
+    if (!userId) return setLoginState([undefined, false, null]);
 
     setLoginState([undefined, true, null]);
 
     axios
       .get(LOGIN_API.isLoggedIn, { params: { userId } })
       .then(({ data }) => {
+        console.log("isLoggedIn", data?.userLoggedIn);
         setLoginState([data?.userLoggedIn, false, null]);
       })
-      .catch(err => {
+      .catch((err) => {
         setLoginState([false, false, err]);
       });
   }, [userId, bypass]);
+
   return loginState;
 }
 
