@@ -21,5 +21,6 @@ export const LOGIN_API = {
   ping: `${cors_anywhere}/${login_url}/`,
   getUserInfo: `${cors_anywhere}/${login_url}/getUserInfo`,
   login: `${cors_anywhere}/${login_url}/login`,
+  logout: `${cors_anywhere}/${login_url}/logout`,
   isLoggedIn: `${cors_anywhere}/${login_url}/isLoggedIn`
 };

@@ -22,50 +22,62 @@ const routes = [
   { component: Profile, path: "/me" },
   { component: Search, path: "/search" },
   { component: MyTop, path: "/top" },
-  { component: Status, path: "/status" }
+  { component: Status, path: "/status" },
 ];
 
 function Main() {
   // Load Store
   const [{ userId, bypass, isLoggedIn }, dispatch] = useContext(Context);
+  console.log("useContext", userId, bypass, isLoggedIn);
 
   // Retrieve from LocalStorage
   const [LSuserId, setLSUserId, deleteLSUserId] = useLocalStorage("userId");
   const [LSbypass, setLSBypass] = useLocalStorage("bypass");
 
-  // Check if value already exists in LocalStorage, if so update store
-  if (typeof userId === "undefined" && LSuserId) {
-    dispatch({
-      type: "SET_USERID",
-      payload: LSuserId
-    });
-  }
-  if (typeof bypass === "undefined" && typeof LSbypass !== "undefined") {
-    dispatch({
-      type: "SET_BYPASS",
-      payload: LSbypass
-    });
-  }
-
-  // Update local storage when store userId and bypass change. If userId is null, delete item from localStorage
-  // TODO Review dependencies here (react-hooks/exhaustive-deps)
   useEffect(() => {
-    if (isLoggedIn && userId !== LSuserId) setLSUserId(userId);
-    else deleteLSUserId();
-    if (bypass !== setLSBypass) setLSBypass(bypass);
-  }, [userId, bypass]);
-
-  // Retrieve login status
-  const [loginStatusResult] = useLoginStatus();
-
-  // Update login status on store
-  useEffect(() => {
-    if (loginStatusResult !== isLoggedIn)
+    if (LSuserId) {
       dispatch({
-        type: "SET_ISLOGGEDIN",
-        payload: loginStatusResult
+        type: "SET_USERID",
+        payload: LSuserId,
       });
-  }, [loginStatusResult, dispatch, isLoggedIn]);
+    }
+  }, [LSuserId]);
+
+  useEffect(() => {
+    if (LSbypass) {
+      dispatch({
+        type: "SET_BYPASS",
+        payload: LSbypass,
+      });
+    }
+  }, [LSbypass]);
+
+  useEffect(() => {
+    setLSBypass(bypass);
+  }, [bypass]);
+
+  console.log("Local Storage", LSuserId, LSbypass);
+
+  const [loginResult] = useLoginStatus();
+
+  console.log("loginResult", loginResult);
+
+  useEffect(() => {
+    if (typeof loginResult === "undefined") return;
+
+    if (loginResult) {
+      setLSUserId(userId);
+      dispatch({
+        type: "LOGIN_USER",
+      });
+    } else {
+      deleteLSUserId();
+      dispatch({
+        type: "LOGOUT_USER",
+      });
+    }
+    console.log("newLoginResult");
+  }, [loginResult]);
 
   return (
     <Router>

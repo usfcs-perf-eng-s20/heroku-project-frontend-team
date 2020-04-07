@@ -1,17 +1,21 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 import { Context } from "providers/Store.js";
+import { LOGIN_API } from "constants/api_constants";
 
 import "./NavBar.scss";
 
 function NavBar() {
   // Load Store
-  const [{ isLoggedIn }, dispatch] = useContext(Context);
+  const [{ userId, isLoggedIn }, dispatch] = useContext(Context);
 
   const logoutCallback = () => {
-    dispatch({
-      type: "SET_LOGOUT"
+    axios.post(LOGIN_API.logout, { userId }).finally(() => {
+      dispatch({
+        type: "LOGOUT_USER"
+      });
     });
   };
 

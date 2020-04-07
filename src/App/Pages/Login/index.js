@@ -9,8 +9,8 @@ import "./Login.scss";
 function Login() {
   const [{ isLoggedIn }, dispatch] = useContext(Context);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("testaccount@gmail.com");
+  const [password, setPassword] = useState("12345");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
