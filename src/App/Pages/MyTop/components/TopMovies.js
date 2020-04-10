@@ -9,7 +9,16 @@ function TopMovies() {
   const [view, setView] = useState(0);
   const [data, setData] = useState([]);
 
-  
+  const sortBy = () => {
+    switch (view) {
+      case 0:
+      default:
+        return (a, b) => b.averageRating - a.averageRating;
+      case 1:
+        return (a, b) => b.favourites - a.favourites;
+    }
+  };
+
 
   const refreshHandler = () =>{
     switch (view) {
@@ -57,14 +66,18 @@ function TopMovies() {
           </tr>
           {
             view === 0 ? 
-              data.map(({ movieId, movieName, averageRating}) => (
+              data
+              .sort(sortBy())
+              .map(({ movieId, movieName, averageRating}) => (
                 <tr key={movieId}>
                   <td>{movieName}</td>
                   <td>{averageRating}</td>
                 </tr>
               ))
             :
-              data.map(({ movieId, movieName, favourites }) => (
+              data
+              .sort(sortBy())
+              .map(({ movieId, movieName, favourites }) => (
                 <tr key={movieId}>
                   <td>{movieName}</td>
                   <td>{favourites}</td>
