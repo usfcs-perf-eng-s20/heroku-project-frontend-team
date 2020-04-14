@@ -5,9 +5,9 @@ import axios from "axios";
 import { Context } from "providers/Store.js";
 import { LOGIN_API } from "constants/api_constants";
 
-import "./NavBar.scss";
+import "./Header.scss";
 
-function NavBar() {
+function Header() {
   // Load Store
   const [{ userId, isLoggedIn }, dispatch] = useContext(Context);
 
@@ -20,9 +20,9 @@ function NavBar() {
   };
 
   return (
-    <div>
-      <h1>DVD Hub</h1>
-      <div>
+    <div className="header">
+      <h1 className="logo">DVD Hub</h1>
+      <div className="Header">
         <NavLink to="/" className="nav-link" exact>
           Home
         </NavLink>
@@ -53,4 +53,4 @@ function NavBar() {
     </div>
   );
 }
-export default NavBar;
+export default Header;

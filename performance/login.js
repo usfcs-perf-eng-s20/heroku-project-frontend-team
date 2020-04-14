@@ -4,7 +4,7 @@ const { URL, screenshotPath, dataTestAttribute } = require("./constants.js");
 const TEST_NAME = "login";
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   await page.goto(`${URL}/login`);
 
@@ -14,8 +14,11 @@ const TEST_NAME = "login";
   await page.type(dataTestAttribute("password"), "12345");
 
   await page.click(dataTestAttribute("login_button"));
+  //   await page.click(dataTestAttribute("login_bypass"));
 
-  await page.waitForNavigation({ timeout: 2000 });
+  await page.waitForNavigation();
+
+  await page.waitFor(1000);
 
   await page.screenshot({ path: `${screenshotPath}/${TEST_NAME}_after.png` });
 
