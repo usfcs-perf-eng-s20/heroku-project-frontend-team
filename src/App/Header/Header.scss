@@ -1,0 +1,23 @@
+.header {
+  margin-bottom: 20px;
+  .logo {
+    font-family: "Yantramanav", sans-serif;
+  }
+  .Header {
+    .nav-link {
+      display: inline-block;
+      padding: 1rem;
+      text-decoration: none;
+      color: black;
+      transition: all 0.25s;
+      margin-right: 5px;
+      border-bottom: 3px solid white;
+      &:hover {
+        border-bottom: 3px solid black;
+      }
+      &.active {
+        border-bottom: 3px solid black;
+      }
+    }
+  }
+}
