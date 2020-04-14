@@ -8,6 +8,8 @@ const TEST_NAME = "search";
   const page = await browser.newPage();
   await page.goto(`${URL}/login`);
 
+  const startMetrics = await page.metrics();
+
   await page.type(dataTestAttribute("email"), "testaccount@gmail.com");
   await page.type(dataTestAttribute("password"), "12345");
 
@@ -29,6 +31,26 @@ const TEST_NAME = "search";
   await page.waitForSelector(dataTestAttribute("search-result-1"));
 
   await page.click(dataTestAttribute("search-result-1"));
+
+  const metrics = await page.metrics();
+
+  const measures = [
+    `JSHeapUsedSize`,
+    `LayoutCount`,
+    `RecalcStyleCount`,
+    `JSEventListeners`,
+    `Nodes`,
+    `ScriptDuration`,
+    `TaskDuration`,
+    `Timestamp`,
+    `LayoutDuration`,
+    `RecalcStyleDuration`
+  ].reduce((accumulator, metric) => ({
+    ...accumulator,
+    [metric]: metrics[metric] - startMetrics[metric]
+  }));
+
+  console.log(measures);
 
   await page.screenshot({ path: `${screenshotPath}/${TEST_NAME}_after.png` });
 

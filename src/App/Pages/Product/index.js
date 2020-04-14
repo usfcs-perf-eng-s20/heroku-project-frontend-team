@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from "react";
+import React, { useContext, useState, useCallback, useEffect } from "react";
 import useAxios from "axios-hooks";
 
 import { SEARCH_API } from "constants/api_constants";
@@ -14,12 +14,17 @@ function Product(props) {
   const [{ userId, isLoggedIn }] = useContext(Context);
   const { id: movieId } = props.match.params;
 
-  const [{ data, loading: movieInfoLoading }] = useAxios({
+  const [{ data, loading: movieInfoLoading }, refetch] = useAxios({
     url: `${SEARCH_API.getMovieById}`,
     params: {
       id: movieId
     }
   });
+
+  // TODO Revisit
+  useEffect(() => {
+    refetch();
+  }, [movieId]);
 
   const userRating = useState(0);
   const [hasFavorited, setHasFavorited] = useState(false);
