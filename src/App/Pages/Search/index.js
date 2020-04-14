@@ -5,12 +5,11 @@ import getSearch from "data/getSearch";
 
 import "./Search.scss";
 
-function SearchResult({ data }) {
+function SearchResult({ data, index }) {
   const { Title, Studio, Price, Rating, Year, Genre, Upc, ID } = data;
 
-  console.log(data);
   return (
-    <Link to={`/product/${ID}`}>
+    <Link to={`/product/${ID}`} data-test-id={`search-result-${index}`}>
       <div className="searchResult">{Title}</div>
     </Link>
   );
@@ -157,14 +156,17 @@ function Search() {
         placeholder="Search for a movie"
         val={searchQuery}
         onChange={event => setSearchQuery(event.target.value)}
+        data-test-id="search-field"
       />
       <div className="search-button">
-        <button onClick={searchByKeyword}>Search</button>
+        <button onClick={searchByKeyword} data-test-id="search-button">
+          Search
+        </button>
       </div>
       {state()}
       <br></br>
-      {searchResults.map(searchResult => (
-        <SearchResult data={searchResult}></SearchResult>
+      {searchResults.map((searchResult, index) => (
+        <SearchResult data={searchResult} index={index}></SearchResult>
       ))}
       {/* <Link to="/product/1">Product 1 Details</Link> */}
     </div>

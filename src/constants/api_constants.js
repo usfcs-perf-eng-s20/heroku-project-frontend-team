@@ -7,8 +7,8 @@ const login_url = "https://perfeng-login-user.herokuapp.com";
 
 export const SEARCH_API = {
   ping: `${search_url}/`,
-  search: `${search_url}/search`,
-  getMovieById: `${search_url}/getMovieById`
+  search: `${cors_anywhere}/${search_url}/search`,
+  getMovieById: `${cors_anywhere}/${search_url}/getMovieById`
 };
 
 export const ANALYTICS_API = {
