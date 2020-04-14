@@ -71,6 +71,7 @@ function Login() {
             Login
           </div>
           <div
+            data-test-id="login_bypass"
             className="login_bypass"
             onClick={() =>
               dispatch({

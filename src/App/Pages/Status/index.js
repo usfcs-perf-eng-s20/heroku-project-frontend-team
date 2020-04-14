@@ -5,7 +5,7 @@ import {
   SEARCH_API,
   ANALYTICS_API,
   FAVES_API,
-  LOGIN_API
+  LOGIN_API,
 } from "constants/api_constants";
 
 import "./Status.scss";
@@ -13,22 +13,22 @@ import "./Status.scss";
 function Status() {
   const [
     { error: searchError, response: searchResponse },
-    searchRefetch
+    searchRefetch,
   ] = useAxios(`${SEARCH_API.ping}`);
 
   const [
     { error: analyticsError, response: analyticsResponse },
-    analyticsRefetch
+    analyticsRefetch,
   ] = useAxios(`${ANALYTICS_API.ping}`);
 
   const [
     { error: favesError, response: favesResponse },
-    favesRefetch
+    favesRefetch,
   ] = useAxios(`${FAVES_API.ping}`);
 
   const [
     { error: loginError, response: loginResponse },
-    loginRefetch
+    loginRefetch,
   ] = useAxios(`${LOGIN_API.ping}`);
 
   const refetch = () => {
@@ -41,7 +41,6 @@ function Status() {
   return (
     <div className="Status">
       <h1>Status</h1>
-      <h2>Result</h2>
       <button onClick={refetch}>Ping</button>
       <div>
         Search API {searchError ? "ERROR" : "SUCCESS"}. Status:

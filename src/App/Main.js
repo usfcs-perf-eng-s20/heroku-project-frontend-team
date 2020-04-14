@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import NavBar from "./NavBar";
+import Header from "./Header";
 import Debug from "./Debug/";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
@@ -15,6 +15,8 @@ import { Context } from "providers/Store.js";
 import useLoginStatus from "data/useLoginStatus";
 import useLocalStorage from "utils/useLocalStorage";
 
+import "./Main.scss";
+
 const routes = [
   { component: Home, path: "/", exact: true },
   { component: Login, path: "/login", exact: true },
@@ -22,7 +24,7 @@ const routes = [
   { component: Profile, path: "/me" },
   { component: Search, path: "/search" },
   { component: MyTop, path: "/top" },
-  { component: Status, path: "/status" },
+  { component: Status, path: "/status" }
 ];
 
 function Main() {
@@ -38,7 +40,7 @@ function Main() {
     if (LSuserId) {
       dispatch({
         type: "SET_USERID",
-        payload: LSuserId,
+        payload: LSuserId
       });
     }
   }, [LSuserId]);
@@ -47,7 +49,7 @@ function Main() {
     if (LSbypass) {
       dispatch({
         type: "SET_BYPASS",
-        payload: LSbypass,
+        payload: LSbypass
       });
     }
   }, [LSbypass]);
@@ -68,27 +70,31 @@ function Main() {
     if (loginResult) {
       setLSUserId(userId);
       dispatch({
-        type: "LOGIN_USER",
+        type: "LOGIN_USER"
       });
     } else {
       deleteLSUserId();
       dispatch({
-        type: "LOGOUT_USER",
+        type: "LOGOUT_USER"
       });
     }
     console.log("newLoginResult");
   }, [loginResult]);
 
   return (
-    <Router>
-      <Debug />
-      <NavBar />
-      <Switch>
-        {routes.map((route, index) => {
-          return <Route key={index} {...route} />;
-        })}
-      </Switch>
-    </Router>
+    <div className="main-container">
+      <div className="main-content">
+        <Router>
+          <Debug />
+          <Header />
+          <Switch>
+            {routes.map((route, index) => {
+              return <Route key={index} {...route} />;
+            })}
+          </Switch>
+        </Router>
+      </div>
+    </div>
   );
 }
 

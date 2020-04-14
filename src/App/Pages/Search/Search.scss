@@ -1,0 +1,25 @@
+.search {
+  .search-field {
+    width: 100%;
+    height: 40px;
+    font-size: 1.5em;
+    padding: 10px;
+    outline: none;
+    border: 1px solid black;
+    transition: all 0.25s;
+    &:focus {
+      border: 2px solid black;
+    }
+  }
+  .search-button button {
+    outline: none;
+    border: 1px solid black;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    transition: all 0.25s;
+    &:hover {
+      background-color: lightgrey;
+    }
+  }
+}
