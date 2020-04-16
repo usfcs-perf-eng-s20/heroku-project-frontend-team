@@ -1,5 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 import Header from "./Header";
 import Debug from "./Debug/";
@@ -18,13 +23,12 @@ import useLocalStorage from "utils/useLocalStorage";
 import "./Main.scss";
 
 const routes = [
-  { component: Home, path: "/", exact: true },
   { component: Login, path: "/login", exact: true },
   { component: Product, path: "/product/:id" },
   { component: Profile, path: "/me" },
   { component: Search, path: "/search" },
   { component: MyTop, path: "/top" },
-  { component: Status, path: "/status" }
+  { component: Status, path: "/status" },
 ];
 
 function Main() {
@@ -40,7 +44,7 @@ function Main() {
     if (LSuserId) {
       dispatch({
         type: "SET_USERID",
-        payload: LSuserId
+        payload: LSuserId,
       });
     }
   }, [LSuserId]);
@@ -49,7 +53,7 @@ function Main() {
     if (LSbypass) {
       dispatch({
         type: "SET_BYPASS",
-        payload: LSbypass
+        payload: LSbypass,
       });
     }
   }, [LSbypass]);
@@ -70,12 +74,12 @@ function Main() {
     if (loginResult) {
       setLSUserId(userId);
       dispatch({
-        type: "LOGIN_USER"
+        type: "LOGIN_USER",
       });
     } else {
       deleteLSUserId();
       dispatch({
-        type: "LOGOUT_USER"
+        type: "LOGOUT_USER",
       });
     }
     console.log("newLoginResult");
@@ -88,6 +92,7 @@ function Main() {
           <Debug />
           <Header />
           <Switch>
+            <Redirect exact from="/" to="search" />
             {routes.map((route, index) => {
               return <Route key={index} {...route} />;
             })}

@@ -2,6 +2,8 @@
   margin-bottom: 20px;
   .logo {
     font-family: "Yantramanav", sans-serif;
+    text-align: center;
+    font-size: 3.5em;
   }
   .Header {
     .nav-link {
@@ -11,12 +13,12 @@
       color: black;
       transition: all 0.25s;
       margin-right: 5px;
-      border-bottom: 3px solid white;
+      border-bottom: 3px solid #f3f4f8;
       &:hover {
-        border-bottom: 3px solid black;
+        border-bottom: 3px solid #5fa9fb;
       }
       &.active {
-        border-bottom: 3px solid black;
+        border-bottom: 3px solid #5fa9fb;
       }
     }
   }

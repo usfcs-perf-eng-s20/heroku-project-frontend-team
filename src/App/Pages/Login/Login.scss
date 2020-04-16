@@ -7,17 +7,32 @@
 }
 
 .login_container {
-  padding: 10px;
-  border: 1px solid black;
+  padding: 40px;
+  background-color: #aad1fd;
+  color: black;
   .title {
     font-size: 1.5em;
     padding: 10px 0 15px;
   }
-  & > .row {
-    display: table;
+  & .row {
+    margin-bottom: 10px;
     label {
-      display: table-cell;
-      width: 120px;
+      display: block;
+      font-size: 0.8em;
+    }
+    input {
+      margin-top: 5px;
+      padding: 5px;
+      display: block;
+      width: 100%;
+      font-size: 1.1em;
+      background-color: white;
+      outline: none;
+      border: 3px solid #aad1fd;
+      transition: all 0.5s;
+      &:focus {
+        border: 3px solid #fdadaa;
+      }
     }
   }
   .buttons {
@@ -26,6 +41,10 @@
     margin: 5px;
     .login_button {
       padding: 5px;
+      outline: none;
+      border: none;
+      background-color: initial;
+      font-size: 1.2em;
     }
     .login_bypass {
       font-size: 0.8em;

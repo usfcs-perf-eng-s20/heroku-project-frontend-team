@@ -7,7 +7,7 @@ import "./Debug.scss";
 function Debug() {
   const [{ userId, bypass, isLoggedIn }] = useContext(Context);
 
-  const [shouldDisplayDebug] = useState(true);
+  const [shouldDisplayDebug] = useState(false);
 
   const forceLogout = useCallback(() => {
     window.localStorage.removeItem("userId");

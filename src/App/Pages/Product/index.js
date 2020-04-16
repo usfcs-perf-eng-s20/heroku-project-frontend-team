@@ -17,8 +17,8 @@ function Product(props) {
   const [{ data, loading: movieInfoLoading }, refetch] = useAxios({
     url: `${SEARCH_API.getMovieById}`,
     params: {
-      id: movieId
-    }
+      id: movieId,
+    },
   });
 
   // TODO Revisit
@@ -34,8 +34,8 @@ function Product(props) {
   const favoriteMovie = useCallback(() => {
     postFavoriteMovie({
       userId,
-      movieId
-    }).then(result => {
+      movieId,
+    }).then((result) => {
       setHasFavorited(true);
     });
   });
@@ -43,16 +43,16 @@ function Product(props) {
     postRateMovie({
       userId,
       movieId,
-      rating: userRating
-    }).then(result => {
+      rating: userRating,
+    }).then((result) => {
       setHasRated(true);
     });
   });
   const checkoutMovie = useCallback(() => {
     putCheckoutMovie({
       userId,
-      movieId
-    }).then(result => {
+      movieId,
+    }).then((result) => {
       setHasCheckedout(true);
     });
   });
@@ -66,9 +66,8 @@ function Product(props) {
   return (
     <div className="movie">
       <div className="movie-detail">
-        <div className="movie-title">
-          {Title} ({Year})
-        </div>
+        <div className="movie-title">{Title}</div>
+        <div className="movie-year">{Year}</div>
         <div className="movie-studio">Produced by: {Studio}</div>
         <div className="movie-price">{Price}</div>
         <div className="movie-rating">

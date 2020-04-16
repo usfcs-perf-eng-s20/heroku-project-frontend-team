@@ -10,128 +10,30 @@ function SearchResult({ data, index }) {
 
   return (
     <Link to={`/product/${ID}`} data-test-id={`search-result-${index}`}>
-      <div className="searchResult">{Title}</div>
+      <div
+        className="search-result"
+        style={{ animationDelay: 0.1 * index + "s" }}
+      >
+        {Title}
+      </div>
     </Link>
   );
 }
-
-const mock = [
-  {
-    Title: "Rainbow (2005)",
-    Studio: "Facets",
-    Price: "$29.95",
-    Rating: "NR",
-    Year: "2005",
-    Genre: "Foreign",
-    Upc: "736899098124",
-    ID: 65607
-  },
-  {
-    Title: "Rainbow (2019)",
-    Studio: "Gravitas Ventures",
-    Price: "$14.99",
-    Rating: "NR",
-    Year: "2019",
-    Genre: "Music",
-    Upc: "812034034490",
-    ID: 316841
-  },
-  {
-    Title: "Rainbow (2019/ Blu-ray)",
-    Studio: "Gravitas Ventures",
-    Price: "$16.99",
-    Rating: "NR",
-    Year: "2019",
-    Genre: "Music",
-    Upc: "812034034506",
-    ID: 316842
-  },
-  {
-    Title: "Rainbow Bridge Motel",
-    Studio: "Gravitas Ventures",
-    Price: "$16.99",
-    Rating: "NR",
-    Year: "2018",
-    Genre: "Comedy",
-    Upc: "812034032137",
-    ID: 313853
-  },
-  {
-    Title: "Rainbow Bridge Motel (Blu-ray)",
-    Studio: "Gravitas Ventures",
-    Price: "$19.99",
-    Rating: "NR",
-    Year: "2018",
-    Genre: "Comedy",
-    Upc: "812034032144",
-    ID: 313854
-  },
-  {
-    Title: "Andy's Rainbow",
-    Studio: "Bridgestone Group",
-    Price: "$19.95",
-    Rating: "NR",
-    Year: "2016",
-    Genre: "Drama",
-    Upc: "95163889159",
-    ID: 312483
-  },
-  {
-    Title:
-      "Rainbow Days: The Complete Series (Blu-ray w/ Digital Copy/ Essentials Edition)",
-    Studio: "FUNimation",
-    Price: "$29.98",
-    Rating: "MA13",
-    Year: "2016",
-    Genre: "Anime",
-    Upc: "704400026096",
-    ID: 314772
-  },
-  {
-    Title: "Rainbow Experiment",
-    Studio: "Gravitas Ventures",
-    Price: "$16.99",
-    Rating: "NR",
-    Year: "2018",
-    Genre: "Drama",
-    Upc: "812034032496",
-    ID: 314773
-  },
-  {
-    Title: "Rainbow Experiment (Blu-ray)",
-    Studio: "Gravitas Ventures",
-    Price: "$19.99",
-    Rating: "NR",
-    Year: "2018",
-    Genre: "Drama",
-    Upc: "812034032502",
-    ID: 314774
-  },
-  {
-    Title: "Sinking Of The Rainbow Warrior",
-    Studio: "Kino Lorber Studio Classics",
-    Price: "$19.95",
-    Rating: "NR",
-    Year: "1993",
-    Genre: "Drama",
-    Upc: "738329232733",
-    ID: 316367
-  }
-];
 
 function Search() {
   const [searchQuery, setSearchQuery] = useState("Rainbow");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const [searchResults, setSearchResults] = useState(mock);
+  const [searchResults, setSearchResults] = useState(undefined);
 
   const searchByKeyword = useCallback(() => {
+    if (searchQuery.length <= 3) return false;
     setLoading(true);
     setSearchResults([]);
     getSearch({
-      keyword: searchQuery
-    }).then(result => {
+      keyword: searchQuery,
+    }).then((result) => {
       setLoading(false);
       if (result.success) {
         console.log(result.data.results);
@@ -146,29 +48,41 @@ function Search() {
   const state = () => {
     if (loading) return "Loading";
     if (error) return "Error";
+    if (!searchResults) return "Search for a movie to display results!";
     if (searchResults.length == 0) return "No results";
   };
 
   return (
     <div className="search">
-      <input
-        className="search-field"
-        placeholder="Search for a movie"
-        val={searchQuery}
-        onChange={event => setSearchQuery(event.target.value)}
-        data-test-id="search-field"
-      />
-      <div className="search-button">
-        <button onClick={searchByKeyword} data-test-id="search-button">
-          Search
-        </button>
+      <div className="search-field">
+        <div className="search-text">Find your next movie</div>
+        <form onSubmit={(event) => event.preventDefault()}>
+          <input
+            className="search-input"
+            placeholder="James Bond"
+            val={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            data-test-id="search-input"
+            minlength="4"
+          />
+          <div className="search-button">
+            <button
+              type="submit"
+              onClick={searchByKeyword}
+              data-test-id="search-button"
+            >
+              Search
+            </button>
+          </div>
+        </form>
       </div>
       {state()}
-      <br></br>
-      {searchResults.map((searchResult, index) => (
-        <SearchResult data={searchResult} index={index}></SearchResult>
-      ))}
-      {/* <Link to="/product/1">Product 1 Details</Link> */}
+      <div className="search-results">
+        {searchResults &&
+          searchResults.map((searchResult, index) => (
+            <SearchResult data={searchResult} index={index}></SearchResult>
+          ))}
+      </div>
     </div>
   );
 }

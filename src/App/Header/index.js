@@ -14,18 +14,17 @@ function Header() {
   const logoutCallback = () => {
     axios.post(LOGIN_API.logout, { userId }).finally(() => {
       dispatch({
-        type: "LOGOUT_USER"
+        type: "LOGOUT_USER",
       });
     });
   };
 
   return (
     <div className="header">
-      <h1 className="logo">DVD Hub</h1>
+      <NavLink to="/">
+        <h1 className="logo">DVD Hub</h1>
+      </NavLink>
       <div className="Header">
-        <NavLink to="/" className="nav-link" exact>
-          Home
-        </NavLink>
         <NavLink to="/search" className="nav-link">
           Search
         </NavLink>

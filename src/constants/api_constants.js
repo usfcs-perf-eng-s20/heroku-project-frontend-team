@@ -8,11 +8,11 @@ const login_url = "https://perfeng-login-user.herokuapp.com";
 export const SEARCH_API = {
   ping: `${search_url}/`,
   search: `${search_url}/search`,
-  getMovieById: `${search_url}/getMovieById`
+  getMovieById: `${search_url}/getMovieById`,
 };
 
 export const ANALYTICS_API = {
-  ping: `${analytics_url}/`
+  ping: `${analytics_url}/`,
 };
 
 export const FAVES_API = {
@@ -22,7 +22,7 @@ export const FAVES_API = {
   // checkoutMovie: `${cors_anywhere}/${faves_url}/checkoutMovie`
   favoriteMovie: `${faves_url}/favoriteMovie`,
   rateMovie: `${faves_url}/rateMovie`,
-  checkoutMovie: `${faves_url}/checkoutMovie`
+  checkoutMovie: `${faves_url}/checkoutMovie`,
 };
 
 export const LOGIN_API = {
@@ -30,5 +30,5 @@ export const LOGIN_API = {
   getUserInfo: `${login_url}/getUserInfo`,
   login: `${login_url}/login`,
   logout: `${login_url}/logout`,
-  isLoggedIn: `${login_url}/isLoggedIn`
+  isLoggedIn: `${login_url}/isLoggedIn`,
 };

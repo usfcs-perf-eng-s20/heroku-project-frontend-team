@@ -24,7 +24,7 @@ const TEST_NAME = "search";
 
   await page.screenshot({ path: `${screenshotPath}/${TEST_NAME}_before.png` });
 
-  await page.focus(dataTestAttribute("search-field"));
+  await page.focus(dataTestAttribute("search-input"));
   await page.keyboard.type("Rainbow Experiment");
   await page.click(dataTestAttribute("search-button"));
 
@@ -44,10 +44,10 @@ const TEST_NAME = "search";
     `TaskDuration`,
     `Timestamp`,
     `LayoutDuration`,
-    `RecalcStyleDuration`
+    `RecalcStyleDuration`,
   ].reduce((accumulator, metric) => ({
     ...accumulator,
-    [metric]: metrics[metric] - startMetrics[metric]
+    [metric]: metrics[metric] - startMetrics[metric],
   }));
 
   console.log(measures);
