@@ -1,28 +1,30 @@
 const puppeteer = require("puppeteer");
 const { URL, screenshotPath, dataTestAttribute } = require("./constants.js");
+const { login, sendMetrics, parseOptions } = require("./helpers.js");
 
 const TEST_NAME = "search";
+const PATH = "search";
+
+const {
+  shouldTakeScreenshot,
+  shouldSendMetrics,
+  shouldBeHeadless,
+} = parseOptions(process.argv);
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: shouldBeHeadless });
   const page = await browser.newPage();
-  await page.goto(`${URL}/login`);
 
-  const startMetrics = await page.metrics();
+  await login(page);
 
-  await page.type(dataTestAttribute("email"), "testaccount@gmail.com");
-  await page.type(dataTestAttribute("password"), "12345");
+  const startMetrics = shouldSendMetrics ? await page.metrics() : null;
 
-  await page.click(dataTestAttribute("login_button"));
-  //   await page.click(dataTestAttribute("login_bypass"));
+  await page.goto(`${URL}/${PATH}`);
 
-  await page.waitForNavigation();
-
-  await page.waitFor(1000);
-
-  await page.goto(`${URL}/search`);
-
-  await page.screenshot({ path: `${screenshotPath}/${TEST_NAME}_before.png` });
+  if (shouldTakeScreenshot)
+    await page.screenshot({
+      path: `${screenshotPath}/${TEST_NAME}_before.png`,
+    });
 
   await page.focus(dataTestAttribute("search-input"));
   await page.keyboard.type("Rainbow Experiment");
@@ -32,27 +34,14 @@ const TEST_NAME = "search";
 
   await page.click(dataTestAttribute("search-result-1"));
 
-  const metrics = await page.metrics();
+  const endMetrics = shouldSendMetrics ? await page.metrics() : null;
 
-  const measures = [
-    `JSHeapUsedSize`,
-    `LayoutCount`,
-    `RecalcStyleCount`,
-    `JSEventListeners`,
-    `Nodes`,
-    `ScriptDuration`,
-    `TaskDuration`,
-    `Timestamp`,
-    `LayoutDuration`,
-    `RecalcStyleDuration`,
-  ].reduce((accumulator, metric) => ({
-    ...accumulator,
-    [metric]: metrics[metric] - startMetrics[metric],
-  }));
+  if (shouldSendMetrics) sendMetrics(TEST_NAME, startMetrics, endMetrics);
 
-  console.log(measures);
-
-  await page.screenshot({ path: `${screenshotPath}/${TEST_NAME}_after.png` });
+  if (shouldTakeScreenshot)
+    await page.screenshot({
+      path: `${screenshotPath}/${TEST_NAME}_after.png`,
+    });
 
   await browser.close();
 })();

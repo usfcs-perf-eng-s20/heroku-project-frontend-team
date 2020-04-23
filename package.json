@@ -1,6 +1,7 @@
 {
   "name": "project-frontend",
   "version": "0.1.0",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@stuuno/node-flow": "^1.0.0",
@@ -18,7 +19,7 @@
     "react-scripts": "3.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts build && node index.js | pino-colada",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,9 +40,16 @@
     ]
   },
   "devDependencies": {
+    "body-parser": "^1.19.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "express": "^4.17.1",
+    "express-pino-logger": "^4.0.0",
+    "node-env-run": "^3.0.2",
+    "nodemon": "^2.0.3",
+    "npm-run-all": "^4.1.5",
+    "pino-colada": "^1.6.1",
     "prettier": "^1.19.1"
   }
 }
