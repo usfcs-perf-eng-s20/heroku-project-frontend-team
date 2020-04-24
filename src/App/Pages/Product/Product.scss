@@ -21,9 +21,18 @@
       }
     }
     .rate {
-      background-color: #fcedd3;
-      &:hover {
-        background-color: #ffd871;
+      & > input {
+        padding: 5px;
+        margin: 5px;
+        text-align: center;
+      }
+      .button {
+        background-color: #fcedd3;
+        display: inline-block;
+        padding: 10px;
+        &:hover {
+          background-color: #ffd871;
+        }
       }
     }
     .checkout {

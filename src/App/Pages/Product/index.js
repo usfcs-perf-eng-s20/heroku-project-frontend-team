@@ -78,18 +78,25 @@ function Product(props) {
       </div>
       {isLoggedIn && (
         <div className="movie-actions">
-          <input
-            val={userRating}
-            onChange={(e) => setUserRating(e.target.val)}
-          ></input>
           <div className="favorite" onClick={favoriteMovie}>
             {hasFavorited ? "Favorited" : "Favorite"}
           </div>
-          <div className="rate" onClick={rateMovie}>
-            {hasRated ? "Rated" : "Rate"}
-          </div>
           <div className="checkout" onClick={checkoutMovie}>
             {hasCheckedout ? "Checked Out'd" : "Checkout"}
+          </div>
+          <div className="rate">
+            Give it a:
+            <input
+              value={userRating}
+              type="number"
+              min="0"
+              max="10"
+              onChange={(e) => setUserRating(parseInt(e.target.value))}
+            />
+            score rating:
+            <div className="button" onClick={rateMovie}>
+              {hasRated ? "Rated" : "Rate"}
+            </div>
           </div>
         </div>
       )}
