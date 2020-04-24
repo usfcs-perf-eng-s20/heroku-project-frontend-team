@@ -26,7 +26,7 @@ function Product(props) {
     refetch();
   }, [movieId]);
 
-  const userRating = useState(0);
+  const [userRating, setUserRating] = useState(5);
   const [hasFavorited, setHasFavorited] = useState(false);
   const [hasRated, setHasRated] = useState(false);
   const [hasCheckedout, setHasCheckedout] = useState(false);
@@ -78,6 +78,10 @@ function Product(props) {
       </div>
       {isLoggedIn && (
         <div className="movie-actions">
+          <input
+            val={userRating}
+            onChange={(e) => setUserRating(e.target.val)}
+          ></input>
           <div className="favorite" onClick={favoriteMovie}>
             {hasFavorited ? "Favorited" : "Favorite"}
           </div>

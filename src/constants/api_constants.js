@@ -22,7 +22,7 @@ export const FAVES_API = {
   // checkoutMovie: `${cors_anywhere}/${faves_url}/checkoutMovie`
   favoriteMovie: `${faves_url}/favoriteMovie`,
   rateMovie: `${faves_url}/rateMovie`,
-  checkoutMovie: `${faves_url}/checkoutMovie`,
+  checkoutMovie: `${faves_url}/checkOutMovie`,
 };
 
 export const LOGIN_API = {

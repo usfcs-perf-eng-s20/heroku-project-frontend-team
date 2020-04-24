@@ -1,10 +1,6 @@
 const express = require("express");
 const path = require("path");
 const { exec } = require("child_process");
-const pino = require("pino");
-const logger = pino({
-  prettifier: require("pino-colada"),
-});
 
 const app = express();
 
@@ -16,19 +12,19 @@ const tests = ["search"];
 
 function runPerformance() {
   tests.forEach((test) => {
-    logger.info("Running", test, "performance test...");
+    console.log("Running", test, "performance test...");
     exec(`node performance/${test}.js --headless`, (error, stdout, stderr) => {
       if (error) {
-        logger.info(`${test}: FAIL, `, error);
+        console.log(`${test}: FAIL, `, error);
         return;
       }
       if (stderr) {
-        logger.info(`${test}: FAIL, `, stderr);
+        console.log(`${test}: FAIL, `, stderr);
         return;
       }
-      logger.info(`${test}: SUCCESS`, stdout);
+      console.log(`${test}: SUCCESS`, stdout);
     });
-    logger.info("----");
+    console.log("----");
   });
 }
 
@@ -43,7 +39,7 @@ app.get("/startPerformance", (req, res) => {
 
   let setIntervalTime = req.query.interval || defaultIntervalTime;
 
-  logger.info(`Running performance tests every ${setIntervalTime} ms`);
+  console.log(`Running performance tests every ${setIntervalTime} ms`);
   res.send(`Running performance tests every ${setIntervalTime} ms`);
   interval = setInterval(runPerformance, setIntervalTime);
   isRunningPerformance = true;
@@ -54,7 +50,7 @@ app.get("/stopPerformance", (req, res) => {
   if (!isRunningPerformance)
     return res.send("Performance are already NOT running.");
 
-  logger.info("Stopping performance tests.");
+  console.log("Stopping performance tests.");
   res.send("Stopping performance tests.");
   clearInterval(interval);
   isRunningPerformance = false;
@@ -68,9 +64,9 @@ app.get("*", (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  logger.info(`Password generator listening on ${port}`);
+  console.log(`Password generator listening on ${port}`);
   interval = setInterval(runPerformance, defaultIntervalTime);
   isRunningPerformance = true;
-  logger.info(`Performance tests are running every ${defaultIntervalTime} ms.`);
+  console.log(`Performance tests are running every ${defaultIntervalTime} ms.`);
   runPerformance();
 });
