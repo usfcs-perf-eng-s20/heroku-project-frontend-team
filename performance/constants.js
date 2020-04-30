@@ -1,5 +1,5 @@
 module.exports = {
-  URL: "http://localhost:3000",
+  URL: "https://perfeng-frontend.herokuapp.com",
   screenshotPath: "./screenshots",
   dataTestAttribute: (value) => `[data-test-id=${value}]`,
   metricKeys: [

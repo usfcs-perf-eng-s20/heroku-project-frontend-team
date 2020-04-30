@@ -17,8 +17,8 @@ export const ANALYTICS_API = {
 
 export const FAVES_API = {
   ping: `${faves_url}/ping`,
-  favoriteMovie: `${cors_anywhere}/${faves_url}/favoriteMovie`,
-  rateMovie: `${cors_anywhere}/${faves_url}/rateMovie`,
+  favoriteMovie: `${faves_url}/favoriteMovie`,
+  rateMovie: `${faves_url}/rateMovie`,
   checkoutMovie: `${faves_url}/checkOutMovie`,
   user: `${cors_anywhere}/${faves_url}/user`,
 };

@@ -10,7 +10,10 @@ const argumentOptions = parseOptions(process.argv);
 const searchTest = async (options) => {
   const { shouldTakeScreenshot, shouldSendMetrics, shouldBeHeadless } =
     options || argumentOptions;
-  const browser = await puppeteer.launch({ headless: shouldBeHeadless });
+  const browser = await puppeteer.launch({
+    headless: shouldBeHeadless,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
 
   await login(page);
