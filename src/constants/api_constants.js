@@ -17,12 +17,10 @@ export const ANALYTICS_API = {
 
 export const FAVES_API = {
   ping: `${faves_url}/ping`,
-  // favoriteMovie: `${cors_anywhere}/${faves_url}/favoriteMovie`,
-  // rateMovie: `${cors_anywhere}/${faves_url}/rateMovie`,
-  // checkoutMovie: `${cors_anywhere}/${faves_url}/checkoutMovie`
   favoriteMovie: `${faves_url}/favoriteMovie`,
   rateMovie: `${faves_url}/rateMovie`,
   checkoutMovie: `${faves_url}/checkOutMovie`,
+  user: `${cors_anywhere}/${faves_url}/user`,
 };
 
 export const LOGIN_API = {
@@ -31,4 +29,5 @@ export const LOGIN_API = {
   login: `${login_url}/login`,
   logout: `${login_url}/logout`,
   isLoggedIn: `${login_url}/isLoggedIn`,
+  signup: `${login_url}/signup`,
 };

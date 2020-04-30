@@ -1,7 +1,7 @@
 import React, { useContext, useState, useCallback, useEffect } from "react";
 import useAxios from "axios-hooks";
 
-import { SEARCH_API } from "constants/api_constants";
+import { SEARCH_API, FAVES_API } from "constants/api_constants";
 import { Context } from "providers/Store.js";
 
 import postFavoriteMovie from "data/postFavoriteMovie";
@@ -30,6 +30,20 @@ function Product(props) {
   const [hasFavorited, setHasFavorited] = useState(false);
   const [hasRated, setHasRated] = useState(false);
   const [hasCheckedout, setHasCheckedout] = useState(false);
+
+  const [{ data: userData }] = useAxios({
+    url: FAVES_API.user,
+    params: {
+      userId: 101,
+    },
+  });
+
+  console.log(userData);
+
+  const movieUserData =
+    userData && userData.find((userData) => userData.id.productId === movieId);
+
+  console.log("movieUserData", movieUserData);
 
   const favoriteMovie = useCallback(() => {
     postFavoriteMovie({

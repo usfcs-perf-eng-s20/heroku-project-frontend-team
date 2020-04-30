@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 
 import { Context } from "providers/Store.js";
 import postLoginUser from "data/postLoginUser";
+import putSignup from "data/putSignup";
 
 import "./Login.scss";
 
@@ -13,6 +14,28 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [isSignup, setIsSignup] = useState(false);
+  const [userName, setUsername] = useState("");
+  const [age, setAge] = useState("");
+  const [city, setCity] = useState("");
+
+  const signUpUser = () => {
+    putSignup({
+      email,
+      password,
+      userName,
+      age,
+      city,
+    }).then((result) => {
+      setLoading(false);
+      if (result.success) {
+        setError(null);
+      } else {
+        setError("Error signing up");
+      }
+    });
+  };
 
   const loginUser = () => {
     setLoading(true);
@@ -28,7 +51,7 @@ function Login() {
           payload: result.data.userId,
         });
       } else {
-        setError("Error");
+        setError("Error in login");
       }
     });
   };
@@ -63,27 +86,77 @@ function Login() {
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
+          <div className="row">
+            <label>Sign up?</label>
+            <input
+              type="checkbox"
+              val={isSignup ? "on" : "off"}
+              onChange={(event) => setIsSignup(!isSignup)}
+            ></input>
+          </div>
+          {isSignup && (
+            <>
+              <div className="row">
+                <label>Username:</label>
+                <input
+                  data-test-id="userName"
+                  value={userName}
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+              </div>
+              <div className="row">
+                <label>Age:</label>
+                <input
+                  data-test-id="age"
+                  value={age}
+                  onChange={(event) => setAge(event.target.value)}
+                />
+              </div>
+              <div className="row">
+                <label>City:</label>
+                <input
+                  data-test-id="city"
+                  value={city}
+                  onChange={(event) => setCity(event.target.value)}
+                />
+              </div>
+            </>
+          )}
+
           <div className="buttons">
-            <button
-              data-test-id="login_button"
-              className="login_button"
-              onClick={loginUser}
-              type="submit"
-            >
-              Login
-            </button>
-            <div
-              data-test-id="login_bypass"
-              className="login_bypass"
-              onClick={() =>
-                dispatch({
-                  type: "SET_BYPASS",
-                  payload: true,
-                })
-              }
-            >
-              Login Bypass
-            </div>
+            {!isSignup ? (
+              <>
+                <button
+                  data-test-id="login_button"
+                  className="login_button"
+                  onClick={loginUser}
+                  type="submit"
+                >
+                  Login
+                </button>
+                <div
+                  data-test-id="login_bypass"
+                  className="login_bypass"
+                  onClick={() =>
+                    dispatch({
+                      type: "SET_BYPASS",
+                      payload: true,
+                    })
+                  }
+                >
+                  Login Bypass
+                </div>
+              </>
+            ) : (
+              <button
+                data-test-id="signUp_button"
+                className="signUp_button"
+                onClick={signUpUser}
+                type="submit"
+              >
+                Signup
+              </button>
+            )}
           </div>
         </form>
         {loading && <div className="login_loading">Loading</div>}

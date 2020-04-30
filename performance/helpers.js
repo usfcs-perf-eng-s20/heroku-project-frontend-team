@@ -34,24 +34,26 @@ async function sendMetrics(
     ...additionalData,
   };
 
-  axios
-    .post(edrEndpoint, {
-      method: "N/A",
-      path: TEST_NAME,
-      processingTimeInMiliseconds: results.TimestampDelta,
-      responseCode: "500",
-      serviceName: "frontend",
-      success: true,
-      timestamp: endMetrics.Timestamp,
-      username: "505",
-    })
-    .then(() => {
-      console.log("Successfully sent to EDR.");
-    })
-    .catch((error) => {
-      console.error(error);
-      exit();
-    });
+  console.log("Ready to save data");
+
+  // axios
+  //   .post(edrEndpoint, {
+  //     method: "N/A",
+  //     path: TEST_NAME,
+  //     processingTimeInMiliseconds: results.TimestampDelta,
+  //     responseCode: "500",
+  //     serviceName: "frontend",
+  //     success: true,
+  //     timestamp: endMetrics.Timestamp,
+  //     username: "505",
+  //   })
+  //   .then(() => {
+  //     console.log("Successfully sent to EDR.");
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //     exit();
+  //   });
 }
 
 function parseOptions(arguments) {

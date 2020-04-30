@@ -22,7 +22,6 @@ function useLoginStatus() {
     axios
       .get(LOGIN_API.isLoggedIn, { params: { userId } })
       .then(({ data }) => {
-        console.log("isLoggedIn", data?.userLoggedIn);
         setLoginState([data?.userLoggedIn, false, null]);
       })
       .catch((err) => {

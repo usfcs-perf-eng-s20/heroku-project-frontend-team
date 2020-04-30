@@ -34,7 +34,7 @@ const routes = [
 function Main() {
   // Load Store
   const [{ userId, bypass, isLoggedIn }, dispatch] = useContext(Context);
-  console.log("useContext", userId, bypass, isLoggedIn);
+  // console.log("useContext", userId, bypass, isLoggedIn);
 
   // Retrieve from LocalStorage
   const [LSuserId, setLSUserId, deleteLSUserId] = useLocalStorage("userId");
@@ -62,11 +62,11 @@ function Main() {
     setLSBypass(bypass);
   }, [bypass]);
 
-  console.log("Local Storage", LSuserId, LSbypass);
+  // console.log("Local Storage", LSuserId, LSbypass);
 
   const [loginResult] = useLoginStatus();
 
-  console.log("loginResult", loginResult);
+  // console.log("loginResult", loginResult);
 
   useEffect(() => {
     if (typeof loginResult === "undefined") return;
@@ -82,7 +82,6 @@ function Main() {
         type: "LOGOUT_USER",
       });
     }
-    console.log("newLoginResult");
   }, [loginResult]);
 
   return (
