@@ -1,4 +1,5 @@
 const axios = require("axios");
+const logger = require("heroku-logger");
 
 const {
   URL,
@@ -34,7 +35,7 @@ async function sendMetrics(
     ...additionalData,
   };
 
-  console.log("Ready to save data");
+  logger.info(`${TEST_NAME} tests`, { serviceName: "frontend", results });
 
   // axios
   //   .post(edrEndpoint, {
@@ -63,6 +64,7 @@ function parseOptions(arguments) {
     shouldTakeScreenshot: slicedArgs.includes("-s"),
     shouldSendMetrics: !slicedArgs.includes("--nometrics"),
     shouldBeHeadless: slicedArgs.includes("--headless"),
+    shouldRun: slicedArgs.includes("-r"),
   };
 
   return options;

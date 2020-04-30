@@ -5,13 +5,11 @@ const { login, sendMetrics, parseOptions } = require("./helpers.js");
 const TEST_NAME = "search";
 const PATH = "search";
 
-const {
-  shouldTakeScreenshot,
-  shouldSendMetrics,
-  shouldBeHeadless,
-} = parseOptions(process.argv);
+const argumentOptions = parseOptions(process.argv);
 
-(async () => {
+const searchTest = async (options) => {
+  const { shouldTakeScreenshot, shouldSendMetrics, shouldBeHeadless } =
+    options || argumentOptions;
   const browser = await puppeteer.launch({ headless: shouldBeHeadless });
   const page = await browser.newPage();
 
@@ -44,4 +42,10 @@ const {
     });
 
   await browser.close();
-})();
+};
+
+if (argumentOptions.shouldRun) searchTest();
+
+module.exports = (options = {}) => {
+  searchTest(options);
+};

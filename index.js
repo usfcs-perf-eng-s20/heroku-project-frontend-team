@@ -1,30 +1,31 @@
 const express = require("express");
 const path = require("path");
+
+const logger = require("heroku-logger");
 const { exec } = require("child_process");
+
+// Tests
+const searchTest = require("./performance/search");
+// End Tests
 
 const app = express();
 
 const defaultIntervalTime = 600000; // 10minutes
 
 let isRunningPerformance = false;
+let shouldRunPerformance = true;
 
-const tests = ["search"];
+const tests = [searchTest];
 
 function runPerformance() {
+  if (!shouldRunPerformance) return;
   tests.forEach((test) => {
-    console.log("Running", test, "performance test...");
-    exec(`node performance/${test}.js --headless`, (error, stdout, stderr) => {
-      if (error) {
-        console.log(`${test}: FAIL, `, error);
-        return;
-      }
-      if (stderr) {
-        console.log(`${test}: FAIL, `, stderr);
-        return;
-      }
-      console.log(`${test}: SUCCESS`, stdout);
+    console.log("Running test:");
+    test({
+      shouldTakeScreenshot: false,
+      shouldSendMetrics: true,
+      shouldBeHeadless: true,
     });
-    console.log("----");
   });
 }
 
@@ -65,8 +66,12 @@ app.get("*", (req, res) => {
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Password generator listening on ${port}`);
-  interval = setInterval(runPerformance, defaultIntervalTime);
-  isRunningPerformance = true;
-  console.log(`Performance tests are running every ${defaultIntervalTime} ms.`);
-  runPerformance();
+  if (shouldRunPerformance) {
+    interval = setInterval(runPerformance, defaultIntervalTime);
+    isRunningPerformance = true;
+    console.log(
+      `Performance tests are running every ${defaultIntervalTime} ms.`
+    );
+    runPerformance();
+  }
 });
