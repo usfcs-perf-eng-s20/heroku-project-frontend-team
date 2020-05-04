@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 
 import { Context } from "providers/Store.js";
 import postLoginUser from "data/postLoginUser";
-import putSignup from "data/putSignup";
+import postSignup from "data/postSignup";
 
 import "./Login.scss";
 
@@ -21,7 +21,7 @@ function Login() {
   const [city, setCity] = useState("");
 
   const signUpUser = () => {
-    putSignup({
+    postSignup({
       email,
       password,
       userName,
@@ -89,6 +89,7 @@ function Login() {
           <div className="row">
             <label>Sign up?</label>
             <input
+              data-test-id="signup"
               type="checkbox"
               val={isSignup ? "on" : "off"}
               onChange={(event) => setIsSignup(!isSignup)}

@@ -1,6 +1,11 @@
 const puppeteer = require("puppeteer");
-const { URL, screenshotPath, dataTestAttribute } = require("./constants.js");
-const { login, sendMetrics, parseOptions } = require("./helpers.js");
+const {
+  URL,
+  DEVURL,
+  screenshotPath,
+  dataTestAttribute,
+} = require("./constants.js");
+const { login, signUp, sendMetrics, parseOptions } = require("./helpers.js");
 
 const TEST_NAME = "search";
 const PATH = "search";
@@ -10,13 +15,24 @@ const argumentOptions = parseOptions(process.argv);
 const searchTest = async (options) => {
   const { shouldTakeScreenshot, shouldSendMetrics, shouldBeHeadless } =
     options || argumentOptions;
+
   const browser = await puppeteer.launch({
     headless: shouldBeHeadless,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
+
+  const randomID =
+    Math.random()
+      .toString(36)
+      .substring(2, 15) +
+    Math.random()
+      .toString(36)
+      .substring(2, 15);
+
   const page = await browser.newPage();
 
-  await login(page);
+  await signUp(page, randomID);
+  await login(page, randomID);
 
   const startMetrics = shouldSendMetrics ? await page.metrics() : null;
 

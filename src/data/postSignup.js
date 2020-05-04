@@ -2,9 +2,9 @@ import axios from "axios";
 
 import { LOGIN_API } from "constants/api_constants";
 
-function putSignup({ userName, email, age, city, password }) {
+function postSignup({ userName, email, age, city, password }) {
   return axios
-    .put(LOGIN_API.signup, {
+    .post(LOGIN_API.signup, {
       userName,
       email,
       age,
@@ -15,4 +15,4 @@ function putSignup({ userName, email, age, city, password }) {
     .catch((err) => ({ success: false, error: err }));
 }
 
-export default putSignup;
+export default postSignup;

@@ -34,17 +34,21 @@ function Product(props) {
   const [{ data: userData }] = useAxios({
     url: FAVES_API.user,
     params: {
-      userId: 101,
+      userId,
     },
   });
 
-  console.log(userData);
-
   const movieUserData =
-    userData && userData.find((userData) => userData.id.productId === movieId);
+    userData && userData.find((userData) => userData.id.productId == movieId);
 
-  console.log("movieUserData", movieUserData);
-
+  if (movieUserData) {
+    if (!hasFavorited && movieUserData.favourites) setHasFavorited(true);
+    if (!hasCheckedout && movieUserData.checkouts) setHasCheckedout(true);
+    if (!hasRated && movieUserData.rating != 0) {
+      setHasRated(true);
+      setUserRating(movieUserData.rating);
+    }
+  }
   const favoriteMovie = useCallback(() => {
     postFavoriteMovie({
       userId,
@@ -103,8 +107,8 @@ function Product(props) {
             <input
               value={userRating}
               type="number"
-              min="0"
-              max="10"
+              min="1"
+              max="5"
               onChange={(e) => setUserRating(parseInt(e.target.value))}
             />
             score rating:

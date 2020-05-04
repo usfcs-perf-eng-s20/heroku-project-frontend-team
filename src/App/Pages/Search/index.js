@@ -63,7 +63,7 @@ function Search() {
             val={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
             data-test-id="search-input"
-            minlength="4"
+            minLength="4"
           />
           <div className="search-button">
             <button

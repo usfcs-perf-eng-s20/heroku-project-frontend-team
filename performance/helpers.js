@@ -1,17 +1,29 @@
 const axios = require("axios");
 const logger = require("heroku-logger");
 
-const {
-  URL,
-  dataTestAttribute,
-  metricKeys,
-  edrEndpoint,
-} = require("./constants.js");
+const { URL, dataTestAttribute, metricKeys } = require("./constants.js");
 
-async function login(page) {
+async function signUp(page, randomID) {
   await page.goto(`${URL}/login`);
 
-  await page.type(dataTestAttribute("email"), "testaccount@gmail.com");
+  await page.type(dataTestAttribute("email"), `${randomID}@gmail.com`);
+  await page.type(dataTestAttribute("password"), "12345");
+
+  await page.click(dataTestAttribute("signup"));
+
+  await page.type(dataTestAttribute("userName"), `${randomID}`);
+  await page.type(dataTestAttribute("age"), "1234");
+  await page.type(dataTestAttribute("city"), "City");
+
+  await page.click(dataTestAttribute("signUp_button"));
+
+  await page.waitFor(1000);
+}
+
+async function login(page, randomID) {
+  await page.goto(`${URL}/login`);
+
+  await page.type(dataTestAttribute("email"), `${randomID}@gmail.com`);
   await page.type(dataTestAttribute("password"), "12345");
 
   await page.click(dataTestAttribute("login_button"));
@@ -36,25 +48,6 @@ async function sendMetrics(
   };
 
   logger.info(`${TEST_NAME} tests`, { serviceName: "frontend", results });
-
-  // axios
-  //   .post(edrEndpoint, {
-  //     method: "N/A",
-  //     path: TEST_NAME,
-  //     processingTimeInMiliseconds: results.TimestampDelta,
-  //     responseCode: "500",
-  //     serviceName: "frontend",
-  //     success: true,
-  //     timestamp: endMetrics.Timestamp,
-  //     username: "505",
-  //   })
-  //   .then(() => {
-  //     console.log("Successfully sent to EDR.");
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //     exit();
-  //   });
 }
 
 function parseOptions(arguments) {
@@ -65,12 +58,14 @@ function parseOptions(arguments) {
     shouldSendMetrics: !slicedArgs.includes("--nometrics"),
     shouldBeHeadless: slicedArgs.includes("--headless"),
     shouldRun: slicedArgs.includes("-r"),
+    isDev: slicedArgs.includes("-d"),
   };
 
   return options;
 }
 
 module.exports = {
+  signUp,
   login,
   sendMetrics,
   parseOptions,
