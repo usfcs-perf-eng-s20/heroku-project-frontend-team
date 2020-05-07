@@ -82,7 +82,7 @@ function Product(props) {
   const { Title, Studio, Price, Rating, Year, Genre, Upc } = movieInfo;
 
   return (
-    <div className="movie">
+    <div className="movie" data-test-id="movie-info">
       <div className="movie-detail">
         <div className="movie-title">{Title}</div>
         <div className="movie-year">{Year}</div>
@@ -96,11 +96,27 @@ function Product(props) {
       </div>
       {isLoggedIn && (
         <div className="movie-actions">
-          <div className="favorite" onClick={favoriteMovie}>
-            {hasFavorited ? "Favorited" : "Favorite"}
+          <div
+            className="favorite"
+            onClick={favoriteMovie}
+            data-test-id="favorite"
+          >
+            {hasFavorited ? (
+              <span data-test-id="favorited">Favorited</span>
+            ) : (
+              "Favorite"
+            )}
           </div>
-          <div className="checkout" onClick={checkoutMovie}>
-            {hasCheckedout ? "Checked Out'd" : "Checkout"}
+          <div
+            className="checkout"
+            onClick={checkoutMovie}
+            data-test-id="checkout"
+          >
+            {hasCheckedout ? (
+              <span data-test-id="checkedout">Checked Out'd</span>
+            ) : (
+              "Checkout"
+            )}
           </div>
           <div className="rate">
             Give it a:

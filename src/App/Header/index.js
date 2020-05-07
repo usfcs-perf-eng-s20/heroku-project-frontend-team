@@ -40,11 +40,15 @@ function Header() {
           Status
         </NavLink>
         {isLoggedIn ? (
-          <div className="nav-link" onClick={logoutCallback}>
+          <div
+            className="nav-link"
+            onClick={logoutCallback}
+            data-test-id="nav-logout"
+          >
             Logout
           </div>
         ) : (
-          <NavLink to="/login" className="nav-link">
+          <NavLink to="/login" className="nav-link" data-test-id="nav-login">
             Login
           </NavLink>
         )}

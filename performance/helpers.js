@@ -48,6 +48,7 @@ async function sendMetrics(
   };
 
   logger.info(`${TEST_NAME} tests`, { serviceName: "frontend", results });
+  console.log(results);
 }
 
 function parseOptions(arguments) {
