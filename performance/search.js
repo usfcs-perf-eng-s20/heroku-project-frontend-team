@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const logger = require("heroku-logger");
 const randomMovies = [
   "thought",
   "roses",
@@ -68,7 +69,7 @@ const searchTest = async (options) => {
   await page.waitForSelector(dataTestAttribute("search-result-0"));
 
   // Click on result
-  await page.click(dataTestAttribute("search-result-1"));
+  await page.click(dataTestAttribute("search-result-0"));
 
   const endSearchResultMetrics = shouldSendMetrics && (await page.metrics());
 
