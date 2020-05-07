@@ -104,7 +104,12 @@ const searchTest = async (options) => {
     total: endSearchTestsMetrics.Timestamp - startMetrics.Timestamp,
   };
 
-  logger.info(`product_end2end tests`, { serviceName: "frontend", results });
+  logger.info(`product_end2end tests`, {
+    serviceName: "frontend",
+    results,
+    userId: randomID,
+    searchQuery: randomMovie,
+  });
 
   if (shouldTakeScreenshot)
     await page.screenshot({
