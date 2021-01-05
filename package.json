@@ -4,7 +4,7 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@stuuno/node-flow": "^1.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "axios-hooks": "^1.9.0",
     "heroku-logger": "^0.3.3",
     "node-sass": "^4.13.1",
