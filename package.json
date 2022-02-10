@@ -7,7 +7,7 @@
     "axios": "^0.19.2",
     "axios-hooks": "^1.9.0",
     "heroku-logger": "^0.3.3",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "puppeteer": "^2.1.1",
     "puppeteer-loadtest": "^1.0.7",
     "random-words": "^1.1.1",
